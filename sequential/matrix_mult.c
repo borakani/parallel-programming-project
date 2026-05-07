@@ -8,12 +8,12 @@ double read_energy() {
     //Intel RAPL, writes the energy which consumed by CPU to a file non-stop
     //The energy is taken from that file
     FILE *f = fopen("/sys/class/powercap/intel-rapl/intel-rapl:0/energy_uj", "r");
-    if(f == NULL)
-        return -1.0;
-    double energy;
-    fscanf(f, "lf", energy);
+    if (f == NULL) return -1.0;
+    long long energy;
+    fscanf(f, "%lld", &energy);
     fclose(f);
-    return energy / 1e6;
+    // energy / 1e6 because we want to use joule but energy comes in mikrojoule format
+    return (double)energy / 1e6;
 }
 // With i we calculate the rows of A and C
 // With j we calculate the columns of B
@@ -48,7 +48,7 @@ int main(int argc, char *argv[]) {
 
     //Fill A and b with randow values between 0 and 1
     srand(42);
-    for(int i = 0; i < N; i++){
+    for(int i = 0; i < N * N; i++){
         // rand / RAND_MAX generates values between 0 and 1
         A[i] = (double)rand() / RAND_MAX;
         B[i] = (double)rand() / RAND_MAX;
