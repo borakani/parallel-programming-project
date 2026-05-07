@@ -53,3 +53,8 @@ dkms.conf
 
 # debug information files
 *.dwo
+openmp/matrix_mult_omp
+openmp/matrix_mult_omp_nopg
+sequential/image_processing/image_processing
+sequential/image_processing/gmon.out
+sequential/image_processing/output_*.pgm
