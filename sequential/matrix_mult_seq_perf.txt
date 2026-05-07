@@ -1,0 +1,127 @@
+============================================
+  Sequential Matrix Multiplication Perf Results
+============================================
+
+############################################
+  Matrix Size: 512x512
+############################################
+
+Matrix size: 512x512
+Time:        0.2653 seconds
+Energy:      5.7695 Joules
+GFLOPS:      1.0118
+GFLOPS/W:    0.0465
+
+ Performance counter stats for './matrix_mult 512':
+
+                 0      context-switches:u               #      0.0 cs/sec  cs_per_second     
+                 0      cpu-migrations:u                 #      0.0 migrations/sec  migrations_per_second
+             1,612      page-faults:u                    #   5956.9 faults/sec  page_faults_per_second
+            270.61 msec task-clock:u                     #      1.0 CPUs  CPUs_utilized       
+           265,320      cpu_core/branch-misses/u         #      0.2 %  branch_miss_rate         (89.35%)
+       135,727,592      cpu_core/branches/u              #    501.6 M/sec  branch_frequency     (89.35%)
+     1,342,663,850      cpu_core/cpu-cycles/u            #      5.0 GHz  cycles_frequency       (89.35%)
+     1,084,754,572      cpu_core/instructions/u          #      0.8 instructions  insn_per_cycle  (89.35%)
+           373,400      cpu_atom/branch-misses/u         #      0.2 %  branch_miss_rate         (5.11%)
+       184,813,186      cpu_atom/branches/u              #    682.9 M/sec  branch_frequency     (5.11%)
+       915,856,984      cpu_atom/cpu-cycles/u            #      3.4 GHz  cycles_frequency       (5.11%)
+     1,360,690,826      cpu_atom/instructions/u          #      1.5 instructions  insn_per_cycle  (5.11%)
+             TopdownL1 (cpu_core)                        #      0.0 %  tma_bad_speculation    
+                                                         #      0.4 %  tma_frontend_bound       (89.35%)
+                                                         #     87.8 %  tma_backend_bound      
+                                                         #     11.8 %  tma_retiring             (89.35%)
+             TopdownL1 (cpu_atom)                        #     66.4 %  tma_backend_bound        (6.65%)
+                                                         #      2.6 %  tma_frontend_bound       (6.65%)
+                                                         #      3.0 %  tma_bad_speculation    
+                                                         #     27.9 %  tma_retiring             (6.30%)
+
+       0.271459931 seconds time elapsed
+
+       0.267557000 seconds user
+       0.002986000 seconds sys
+
+
+
+############################################
+  Matrix Size: 1024x1024
+############################################
+
+Matrix size: 1024x1024
+Time:        2.3332 seconds
+Energy:      52.4211 Joules
+GFLOPS:      0.9204
+GFLOPS/W:    0.0410
+
+ Performance counter stats for './matrix_mult 1024':
+
+                 0      context-switches:u               #      0.0 cs/sec  cs_per_second     
+                 0      cpu-migrations:u                 #      0.0 migrations/sec  migrations_per_second
+             6,220      page-faults:u                    #   2643.5 faults/sec  page_faults_per_second
+          2,352.95 msec task-clock:u                     #      1.0 CPUs  CPUs_utilized       
+         1,063,462      cpu_core/branch-misses/u         #      0.1 %  branch_miss_rate         (99.23%)
+     1,086,437,953      cpu_core/branches/u              #    461.7 M/sec  branch_frequency     (99.23%)
+    11,708,377,483      cpu_core/cpu-cycles/u            #      5.0 GHz  cycles_frequency       (99.23%)
+     8,678,335,145      cpu_core/instructions/u          #      0.7 instructions  insn_per_cycle  (99.23%)
+         8,444,396      cpu_atom/branch-misses/u         #      0.2 %  branch_miss_rate         (0.35%)
+     3,831,373,171      cpu_atom/branches/u              #   1628.3 M/sec  branch_frequency     (0.35%)
+     5,656,810,982      cpu_atom/cpu-cycles/u            #      2.4 GHz  cycles_frequency       (0.35%)
+    15,239,975,334      cpu_atom/instructions/u          #      2.7 instructions  insn_per_cycle  (0.35%)
+             TopdownL1 (cpu_core)                        #      0.0 %  tma_bad_speculation    
+                                                         #      0.8 %  tma_frontend_bound       (99.23%)
+                                                         #     88.3 %  tma_backend_bound      
+                                                         #     10.9 %  tma_retiring             (99.23%)
+             TopdownL1 (cpu_atom)                        #     10.5 %  tma_backend_bound        (0.51%)
+                                                         #     27.3 %  tma_frontend_bound       (0.51%)
+                                                         #      4.2 %  tma_bad_speculation    
+                                                         #     57.9 %  tma_retiring             (0.47%)
+
+       2.354021803 seconds time elapsed
+
+       2.340895000 seconds user
+       0.008939000 seconds sys
+
+
+
+############################################
+  Matrix Size: 2048x2048
+############################################
+
+Matrix size: 2048x2048
+Time:        39.8806 seconds
+Energy:      873.7560 Joules
+GFLOPS:      0.4308
+GFLOPS/W:    0.0197
+
+ Performance counter stats for './matrix_mult 2048':
+
+                 0      context-switches:u               #      0.0 cs/sec  cs_per_second     
+                 0      cpu-migrations:u                 #      0.0 migrations/sec  migrations_per_second
+            24,650      page-faults:u                    #    617.3 faults/sec  page_faults_per_second
+         39,930.60 msec task-clock:u                     #      1.0 CPUs  CPUs_utilized       
+         4,419,667      cpu_core/branch-misses/u         #      0.1 %  branch_miss_rate         (99.96%)
+     8,705,410,395      cpu_core/branches/u              #    218.0 M/sec  branch_frequency     (99.96%)
+   198,763,131,222      cpu_core/cpu-cycles/u            #      5.0 GHz  cycles_frequency       (99.96%)
+    69,205,272,249      cpu_core/instructions/u          #      0.3 instructions  insn_per_cycle  (99.96%)
+       148,321,976      cpu_atom/branch-misses/u         #      0.2 %  branch_miss_rate         (0.02%)
+    63,417,234,914      cpu_atom/branches/u              #   1588.2 M/sec  branch_frequency     (0.02%)
+    93,700,793,759      cpu_atom/cpu-cycles/u            #      2.3 GHz  cycles_frequency       (0.02%)
+   256,334,062,051      cpu_atom/instructions/u          #      2.7 instructions  insn_per_cycle  (0.02%)
+             TopdownL1 (cpu_core)                        #      0.4 %  tma_bad_speculation    
+                                                         #      0.8 %  tma_frontend_bound       (99.96%)
+                                                         #     93.0 %  tma_backend_bound      
+                                                         #      5.9 %  tma_retiring             (99.96%)
+             TopdownL1 (cpu_atom)                        #     10.4 %  tma_backend_bound        (0.03%)
+                                                         #     27.2 %  tma_frontend_bound       (0.03%)
+                                                         #      5.9 %  tma_bad_speculation    
+                                                         #     56.6 %  tma_retiring             (0.02%)
+
+      39.937095504 seconds time elapsed
+
+      39.848178000 seconds user
+       0.021885000 seconds sys
+
+
+
+============================================
+  Done
+============================================
