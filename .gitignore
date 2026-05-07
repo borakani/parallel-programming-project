@@ -53,3 +53,7 @@ dkms.conf
 
 # debug information files
 *.dwo
+openmp/matrix_mult_omp
+openmp/matrix_mult_omp_nopg
+sequential/matrix_mult
+sequential/sequential_profile.txt
