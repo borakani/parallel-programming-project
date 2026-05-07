@@ -1,0 +1,154 @@
+============================================
+  Sequential Image Processing Perf Results
+============================================
+
+############################################
+  Image: 512x512.pgm
+############################################
+
+=== Gaussian Blur ===
+Image size:  512x512
+Time:        0.0079 seconds
+Energy:      0.1452 Joules
+GFLOPS:      1.6634
+GFLOPS/W:    0.0903
+
+=== Sobel Edge Detection ===
+Image size:  512x512
+Time:        0.0042 seconds
+Energy:      0.0686 Joules
+GFLOPS:      2.2496
+GFLOPS/W:    0.1376
+
+
+ Performance counter stats for './image_processing ../../images/512x512.pgm':
+
+                 0      context-switches:u               #      0.0 cs/sec  cs_per_second     
+                 0      cpu-migrations:u                 #      0.0 migrations/sec  migrations_per_second
+               913      page-faults:u                    #  64710.0 faults/sec  page_faults_per_second
+             14.11 msec task-clock:u                     #      0.9 CPUs  CPUs_utilized       
+     <not counted>      cpu_core/branch-misses/u         #      nan %  branch_miss_rate         (0.00%)
+     <not counted>      cpu_core/branches/u              #      nan M/sec  branch_frequency     (0.00%)
+     <not counted>      cpu_core/cpu-cycles/u            #      nan GHz  cycles_frequency       (0.00%)
+     <not counted>      cpu_core/instructions/u          #      nan instructions  insn_per_cycle  (0.00%)
+             3,188      cpu_atom/branch-misses/u         #      0.0 %  branch_miss_rate         (36.13%)
+        11,374,040      cpu_atom/branches/u              #    806.1 M/sec  branch_frequency     (43.16%)
+        44,256,871      cpu_atom/cpu-cycles/u            #      3.1 GHz  cycles_frequency       (50.24%)
+       165,311,861      cpu_atom/instructions/u          #      3.7 instructions  insn_per_cycle  (57.30%)
+             TopdownL1 (cpu_core)                        #      0.0 %  tma_bad_speculation    
+                                                         #      nan %  tma_frontend_bound       (0.00%)
+                                                         #      nan %  tma_backend_bound      
+                                                         #      nan %  tma_retiring             (0.00%)
+             TopdownL1 (cpu_atom)                        #     17.0 %  tma_backend_bound        (63.93%)
+                                                         #      4.5 %  tma_frontend_bound       (56.84%)
+                                                         #     -4.5 %  tma_bad_speculation    
+                                                         #     83.1 %  tma_retiring             (49.66%)
+
+       0.014534570 seconds time elapsed
+
+       0.010586000 seconds user
+       0.003843000 seconds sys
+
+
+
+############################################
+  Image: 1024x1024.pgm
+############################################
+
+=== Gaussian Blur ===
+Image size:  1080x1080
+Time:        0.0200 seconds
+Energy:      0.5587 Joules
+GFLOPS:      2.9104
+GFLOPS/W:    0.1044
+
+=== Sobel Edge Detection ===
+Image size:  1080x1080
+Time:        0.0096 seconds
+Energy:      0.2692 Joules
+GFLOPS:      4.3648
+GFLOPS/W:    0.1560
+
+
+ Performance counter stats for './image_processing ../../images/1024x1024.pgm':
+
+                 0      context-switches:u               #      0.0 cs/sec  cs_per_second     
+                 0      cpu-migrations:u                 #      0.0 migrations/sec  migrations_per_second
+             3,782      page-faults:u                    # 108631.0 faults/sec  page_faults_per_second
+             34.82 msec task-clock:u                     #      1.0 CPUs  CPUs_utilized       
+             4,656      cpu_core/branch-misses/u         #      0.0 %  branch_miss_rate         (88.00%)
+        61,879,602      cpu_core/branches/u              #   1777.4 M/sec  branch_frequency     (88.00%)
+       151,049,925      cpu_core/cpu-cycles/u            #      4.3 GHz  cycles_frequency       (88.00%)
+       840,696,352      cpu_core/instructions/u          #      5.6 instructions  insn_per_cycle  (88.00%)
+           166,565      cpu_atom/branch-misses/u         #      8.5 %  branch_miss_rate         (0.45%)
+         1,500,464      cpu_atom/branches/u              #     43.1 M/sec  branch_frequency     (3.33%)
+        24,015,784      cpu_atom/cpu-cycles/u            #      0.7 GHz  cycles_frequency       (6.20%)
+       103,280,327      cpu_atom/instructions/u          #      2.6 instructions  insn_per_cycle  (9.05%)
+             TopdownL1 (cpu_core)                        #      0.0 %  tma_bad_speculation    
+                                                         #      7.1 %  tma_frontend_bound       (88.00%)
+                                                         #      5.9 %  tma_backend_bound      
+                                                         #     87.0 %  tma_retiring             (88.00%)
+             TopdownL1 (cpu_atom)                        #     27.9 %  tma_backend_bound        (8.67%)
+                                                         #      5.4 %  tma_frontend_bound       (5.80%)
+                                                         #    -85.8 %  tma_bad_speculation    
+                                                         #    152.4 %  tma_retiring             (2.95%)
+
+       0.035233866 seconds time elapsed
+
+       0.030128000 seconds user
+       0.004989000 seconds sys
+
+
+
+############################################
+  Image: 7680x4320.pgm
+############################################
+
+=== Gaussian Blur ===
+Image size:  7680x4320
+Time:        0.5217 seconds
+Energy:      12.2575 Joules
+GFLOPS:      3.1797
+GFLOPS/W:    0.1353
+
+=== Sobel Edge Detection ===
+Image size:  7680x4320
+Time:        0.2639 seconds
+Energy:      6.7022 Joules
+GFLOPS:      4.5263
+GFLOPS/W:    0.1782
+
+
+ Performance counter stats for './image_processing ../../images/7680x4320.pgm':
+
+                 0      context-switches:u               #      0.0 cs/sec  cs_per_second     
+                 0      cpu-migrations:u                 #      0.0 migrations/sec  migrations_per_second
+           105,382      page-faults:u                    # 116696.9 faults/sec  page_faults_per_second
+            903.04 msec task-clock:u                     #      1.0 CPUs  CPUs_utilized       
+            11,482      cpu_core/branch-misses/u         #      0.0 %  branch_miss_rate         (99.53%)
+     1,602,216,211      cpu_core/branches/u              #   1774.2 M/sec  branch_frequency     (99.53%)
+     3,960,310,346      cpu_core/cpu-cycles/u            #      4.4 GHz  cycles_frequency       (99.53%)
+    21,787,873,966      cpu_core/instructions/u          #      5.5 instructions  insn_per_cycle  (99.53%)
+         3,666,628      cpu_atom/branch-misses/u         #      8.3 %  branch_miss_rate         (0.02%)
+        26,567,923      cpu_atom/branches/u              #     29.4 M/sec  branch_frequency     (0.13%)
+       163,718,125      cpu_atom/cpu-cycles/u            #      0.2 GHz  cycles_frequency       (0.24%)
+        47,893,506      cpu_atom/instructions/u          #      0.4 instructions  insn_per_cycle  (0.35%)
+             TopdownL1 (cpu_core)                        #      0.4 %  tma_bad_speculation    
+                                                         #      6.2 %  tma_frontend_bound       (99.53%)
+                                                         #      8.2 %  tma_backend_bound      
+                                                         #     85.2 %  tma_retiring             (99.53%)
+             TopdownL1 (cpu_atom)                        #      0.0 %  tma_backend_bound        (0.34%)
+                                                         #      0.0 %  tma_frontend_bound       (0.23%)
+                                                         #    100.0 %  tma_bad_speculation    
+                                                         #      0.0 %  tma_retiring             (0.11%)
+
+       0.923160696 seconds time elapsed
+
+       0.789290000 seconds user
+       0.113708000 seconds sys
+
+
+
+============================================
+  Done
+============================================

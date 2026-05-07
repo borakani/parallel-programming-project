@@ -1,0 +1,64 @@
+============================================
+  Sequential Image Processing Results
+============================================
+
+############################################
+  Image: 512x512.pgm
+############################################
+
+=== Gaussian Blur ===
+Image size:  512x512
+Time:        0.0052 seconds
+Energy:      0.1345 Joules
+GFLOPS:      2.5372
+GFLOPS/W:    0.0974
+
+=== Sobel Edge Detection ===
+Image size:  512x512
+Time:        0.0022 seconds
+Energy:      0.0583 Joules
+GFLOPS:      4.3441
+GFLOPS/W:    0.1619
+
+
+############################################
+  Image: 1024x1024.pgm
+############################################
+
+=== Gaussian Blur ===
+Image size:  1080x1080
+Time:        0.0230 seconds
+Energy:      0.5960 Joules
+GFLOPS:      2.5386
+GFLOPS/W:    0.0979
+
+=== Sobel Edge Detection ===
+Image size:  1080x1080
+Time:        0.0096 seconds
+Energy:      0.2660 Joules
+GFLOPS:      4.3822
+GFLOPS/W:    0.1579
+
+
+############################################
+  Image: 7680x4320.pgm
+############################################
+
+=== Gaussian Blur ===
+Image size:  7680x4320
+Time:        0.5228 seconds
+Energy:      12.6862 Joules
+GFLOPS:      3.1734
+GFLOPS/W:    0.1308
+
+=== Sobel Edge Detection ===
+Image size:  7680x4320
+Time:        0.2624 seconds
+Energy:      6.2647 Joules
+GFLOPS:      4.5515
+GFLOPS/W:    0.1907
+
+
+============================================
+  Done
+============================================
