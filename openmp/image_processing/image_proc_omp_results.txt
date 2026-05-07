@@ -1,0 +1,355 @@
+============================================
+  OpenMP Image Processing Results
+============================================
+
+############################################
+  Image: 512x512.pgm
+############################################
+
+--- Threads: 1 ---
+=== Gaussian Blur | Threads: 1 ===
+Image size:  512x512
+Time:        0.0044 seconds
+Energy:      0.0992 Joules
+GFLOPS:      2.9805
+GFLOPS/W:    0.1321
+
+=== Sobel Edge Detection | Threads: 1 ===
+Image size:  512x512
+Time:        0.0022 seconds
+Energy:      0.0473 Joules
+GFLOPS:      4.2256
+GFLOPS/W:    0.1995
+
+
+--- Threads: 2 ---
+=== Gaussian Blur | Threads: 2 ===
+Image size:  512x512
+Time:        0.0043 seconds
+Energy:      0.1064 Joules
+GFLOPS:      3.0819
+GFLOPS/W:    0.1232
+
+=== Sobel Edge Detection | Threads: 2 ===
+Image size:  512x512
+Time:        0.0020 seconds
+Energy:      0.0447 Joules
+GFLOPS:      4.7045
+GFLOPS/W:    0.2112
+
+
+--- Threads: 4 ---
+=== Gaussian Blur | Threads: 4 ===
+Image size:  512x512
+Time:        0.0021 seconds
+Energy:      0.0634 Joules
+GFLOPS:      6.3082
+GFLOPS/W:    0.2067
+
+=== Sobel Edge Detection | Threads: 4 ===
+Image size:  512x512
+Time:        0.0010 seconds
+Energy:      0.0488 Joules
+GFLOPS:      9.4651
+GFLOPS/W:    0.1935
+
+
+--- Threads: 8 ---
+=== Gaussian Blur | Threads: 8 ===
+Image size:  512x512
+Time:        0.0012 seconds
+Energy:      0.0463 Joules
+GFLOPS:      10.5586
+GFLOPS/W:    0.2829
+
+=== Sobel Edge Detection | Threads: 8 ===
+Image size:  512x512
+Time:        0.0005 seconds
+Energy:      0.0549 Joules
+GFLOPS:      17.3624
+GFLOPS/W:    0.1720
+
+
+--- Threads: 16 ---
+=== Gaussian Blur | Threads: 16 ===
+Image size:  512x512
+Time:        0.0010 seconds
+Energy:      0.0419 Joules
+GFLOPS:      13.4707
+GFLOPS/W:    0.3130
+
+=== Sobel Edge Detection | Threads: 16 ===
+Image size:  512x512
+Time:        0.0003 seconds
+Energy:      0.0000 Joules
+GFLOPS:      33.9953
+GFLOPS/W:    N/A
+
+
+--- Threads: 20 ---
+=== Gaussian Blur | Threads: 20 ===
+Image size:  512x512
+Time:        0.0009 seconds
+Energy:      0.0148 Joules
+GFLOPS:      15.0259
+GFLOPS/W:    0.8837
+
+=== Sobel Edge Detection | Threads: 20 ===
+Image size:  512x512
+Time:        0.0002 seconds
+Energy:      0.0000 Joules
+GFLOPS:      41.5830
+GFLOPS/W:    N/A
+
+
+--- Threads: 32 ---
+=== Gaussian Blur | Threads: 32 ===
+Image size:  512x512
+Time:        0.0022 seconds
+Energy:      0.1108 Joules
+GFLOPS:      5.9819
+GFLOPS/W:    0.1183
+
+=== Sobel Edge Detection | Threads: 32 ===
+Image size:  512x512
+Time:        0.0004 seconds
+Energy:      0.0000 Joules
+GFLOPS:      24.8075
+GFLOPS/W:    N/A
+
+
+############################################
+  Image: 1024x1024.pgm
+############################################
+
+--- Threads: 1 ---
+=== Gaussian Blur | Threads: 1 ===
+Image size:  1080x1080
+Time:        0.0191 seconds
+Energy:      0.6819 Joules
+GFLOPS:      3.0525
+GFLOPS/W:    0.0855
+
+=== Sobel Edge Detection | Threads: 1 ===
+Image size:  1080x1080
+Time:        0.0098 seconds
+Energy:      0.3036 Joules
+GFLOPS:      4.3050
+GFLOPS/W:    0.1383
+
+
+--- Threads: 2 ---
+=== Gaussian Blur | Threads: 2 ===
+Image size:  1080x1080
+Time:        0.0137 seconds
+Energy:      0.4363 Joules
+GFLOPS:      4.2478
+GFLOPS/W:    0.1337
+
+=== Sobel Edge Detection | Threads: 2 ===
+Image size:  1080x1080
+Time:        0.0050 seconds
+Energy:      0.1822 Joules
+GFLOPS:      8.3639
+GFLOPS/W:    0.2305
+
+
+--- Threads: 4 ---
+=== Gaussian Blur | Threads: 4 ===
+Image size:  1080x1080
+Time:        0.0096 seconds
+Energy:      0.3149 Joules
+GFLOPS:      6.1025
+GFLOPS/W:    0.1852
+
+=== Sobel Edge Detection | Threads: 4 ===
+Image size:  1080x1080
+Time:        0.0045 seconds
+Energy:      0.1871 Joules
+GFLOPS:      9.3453
+GFLOPS/W:    0.2244
+
+
+--- Threads: 8 ---
+=== Gaussian Blur | Threads: 8 ===
+Image size:  1080x1080
+Time:        0.0049 seconds
+Energy:      0.2469 Joules
+GFLOPS:      11.9337
+GFLOPS/W:    0.2362
+
+=== Sobel Edge Detection | Threads: 8 ===
+Image size:  1080x1080
+Time:        0.0022 seconds
+Energy:      0.0975 Joules
+GFLOPS:      18.7772
+GFLOPS/W:    0.4305
+
+
+--- Threads: 16 ---
+=== Gaussian Blur | Threads: 16 ===
+Image size:  1080x1080
+Time:        0.0028 seconds
+Energy:      0.1920 Joules
+GFLOPS:      20.9150
+GFLOPS/W:    0.3037
+
+=== Sobel Edge Detection | Threads: 16 ===
+Image size:  1080x1080
+Time:        0.0012 seconds
+Energy:      0.1940 Joules
+GFLOPS:      35.6392
+GFLOPS/W:    0.2164
+
+
+--- Threads: 20 ---
+=== Gaussian Blur | Threads: 20 ===
+Image size:  1080x1080
+Time:        0.0024 seconds
+Energy:      0.2194 Joules
+GFLOPS:      24.0078
+GFLOPS/W:    0.2659
+
+=== Sobel Edge Detection | Threads: 20 ===
+Image size:  1080x1080
+Time:        0.0009 seconds
+Energy:      0.1226 Joules
+GFLOPS:      44.4760
+GFLOPS/W:    0.3426
+
+
+--- Threads: 32 ---
+=== Gaussian Blur | Threads: 32 ===
+Image size:  1080x1080
+Time:        0.0047 seconds
+Energy:      0.3094 Joules
+GFLOPS:      12.5377
+GFLOPS/W:    0.1885
+
+=== Sobel Edge Detection | Threads: 32 ===
+Image size:  1080x1080
+Time:        0.0019 seconds
+Energy:      0.1600 Joules
+GFLOPS:      21.7297
+GFLOPS/W:    0.2624
+
+
+############################################
+  Image: 7680x4320.pgm
+############################################
+
+--- Threads: 1 ---
+=== Gaussian Blur | Threads: 1 ===
+Image size:  7680x4320
+Time:        0.5330 seconds
+Energy:      12.9314 Joules
+GFLOPS:      3.1122
+GFLOPS/W:    0.1283
+
+=== Sobel Edge Detection | Threads: 1 ===
+Image size:  7680x4320
+Time:        0.2677 seconds
+Energy:      6.3486 Joules
+GFLOPS:      4.4616
+GFLOPS/W:    0.1881
+
+
+--- Threads: 2 ---
+=== Gaussian Blur | Threads: 2 ===
+Image size:  7680x4320
+Time:        0.2746 seconds
+Energy:      10.0729 Joules
+GFLOPS:      6.0406
+GFLOPS/W:    0.1647
+
+=== Sobel Edge Detection | Threads: 2 ===
+Image size:  7680x4320
+Time:        0.1371 seconds
+Energy:      5.1078 Joules
+GFLOPS:      8.7132
+GFLOPS/W:    0.2338
+
+
+--- Threads: 4 ---
+=== Gaussian Blur | Threads: 4 ===
+Image size:  7680x4320
+Time:        0.1436 seconds
+Energy:      8.4775 Joules
+GFLOPS:      11.5490
+GFLOPS/W:    0.1957
+
+=== Sobel Edge Detection | Threads: 4 ===
+Image size:  7680x4320
+Time:        0.0703 seconds
+Energy:      4.1376 Joules
+GFLOPS:      16.9782
+GFLOPS/W:    0.2887
+
+
+--- Threads: 8 ---
+=== Gaussian Blur | Threads: 8 ===
+Image size:  7680x4320
+Time:        0.1016 seconds
+Energy:      7.8132 Joules
+GFLOPS:      16.3267
+GFLOPS/W:    0.2123
+
+=== Sobel Edge Detection | Threads: 8 ===
+Image size:  7680x4320
+Time:        0.0502 seconds
+Energy:      4.0116 Joules
+GFLOPS:      23.7855
+GFLOPS/W:    0.2977
+
+
+--- Threads: 16 ---
+=== Gaussian Blur | Threads: 16 ===
+Image size:  7680x4320
+Time:        0.0675 seconds
+Energy:      6.9190 Joules
+GFLOPS:      24.5792
+GFLOPS/W:    0.2398
+
+=== Sobel Edge Detection | Threads: 16 ===
+Image size:  7680x4320
+Time:        0.0323 seconds
+Energy:      3.5482 Joules
+GFLOPS:      36.9380
+GFLOPS/W:    0.3366
+
+
+--- Threads: 20 ---
+=== Gaussian Blur | Threads: 20 ===
+Image size:  7680x4320
+Time:        0.0566 seconds
+Energy:      7.0155 Joules
+GFLOPS:      29.3172
+GFLOPS/W:    0.2365
+
+=== Sobel Edge Detection | Threads: 20 ===
+Image size:  7680x4320
+Time:        0.0337 seconds
+Energy:      3.6214 Joules
+GFLOPS:      35.4003
+GFLOPS/W:    0.3298
+
+
+--- Threads: 32 ---
+=== Gaussian Blur | Threads: 32 ===
+Image size:  7680x4320
+Time:        0.0715 seconds
+Energy:      7.0594 Joules
+GFLOPS:      23.2172
+GFLOPS/W:    0.2350
+
+=== Sobel Edge Detection | Threads: 32 ===
+Image size:  7680x4320
+Time:        0.0353 seconds
+Energy:      3.6380 Joules
+GFLOPS:      33.8660
+GFLOPS/W:    0.3283
+
+
+============================================
+  Done
+============================================
