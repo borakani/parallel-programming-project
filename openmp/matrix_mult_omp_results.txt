@@ -1,0 +1,187 @@
+============================================
+  OpenMP Matrix Multiplication Results
+============================================
+
+############################################
+  Matrix Size: 512x512
+############################################
+
+--- Threads: 1 ---
+Matrix size:  512x512
+Threads:      1
+Time:         0.2630 seconds
+Energy:       5.9330 Joules
+GFLOPS:       1.0209
+GFLOPS/W:     0.0452
+
+--- Threads: 2 ---
+Matrix size:  512x512
+Threads:      2
+Time:         0.1154 seconds
+Energy:       3.4008 Joules
+GFLOPS:       2.3263
+GFLOPS/W:     0.0789
+
+--- Threads: 4 ---
+Matrix size:  512x512
+Threads:      4
+Time:         0.0690 seconds
+Energy:       2.8146 Joules
+GFLOPS:       3.8881
+GFLOPS/W:     0.0954
+
+--- Threads: 8 ---
+Matrix size:  512x512
+Threads:      8
+Time:         0.0404 seconds
+Energy:       2.7276 Joules
+GFLOPS:       6.6391
+GFLOPS/W:     0.0984
+
+--- Threads: 16 ---
+Matrix size:  512x512
+Threads:      16
+Time:         0.0269 seconds
+Energy:       2.1703 Joules
+GFLOPS:       9.9858
+GFLOPS/W:     0.1237
+
+--- Threads: 20 ---
+Matrix size:  512x512
+Threads:      20
+Time:         0.0229 seconds
+Energy:       2.1260 Joules
+GFLOPS:       11.7186
+GFLOPS/W:     0.1263
+
+--- Threads: 32 ---
+Matrix size:  512x512
+Threads:      32
+Time:         0.0409 seconds
+Energy:       2.3002 Joules
+GFLOPS:       6.5654
+GFLOPS/W:     0.1167
+
+############################################
+  Matrix Size: 1024x1024
+############################################
+
+--- Threads: 1 ---
+Matrix size:  1024x1024
+Threads:      1
+Time:         2.3119 seconds
+Energy:       52.6675 Joules
+GFLOPS:       0.9289
+GFLOPS/W:     0.0408
+
+--- Threads: 2 ---
+Matrix size:  1024x1024
+Threads:      2
+Time:         1.0519 seconds
+Energy:       33.7250 Joules
+GFLOPS:       2.0416
+GFLOPS/W:     0.0637
+
+--- Threads: 4 ---
+Matrix size:  1024x1024
+Threads:      4
+Time:         0.5536 seconds
+Energy:       26.6867 Joules
+GFLOPS:       3.8788
+GFLOPS/W:     0.0805
+
+--- Threads: 8 ---
+Matrix size:  1024x1024
+Threads:      8
+Time:         0.3722 seconds
+Energy:       25.3863 Joules
+GFLOPS:       5.7703
+GFLOPS/W:     0.0846
+
+--- Threads: 16 ---
+Matrix size:  1024x1024
+Threads:      16
+Time:         0.2414 seconds
+Energy:       20.6946 Joules
+GFLOPS:       8.8947
+GFLOPS/W:     0.1038
+
+--- Threads: 20 ---
+Matrix size:  1024x1024
+Threads:      20
+Time:         0.2210 seconds
+Energy:       20.9124 Joules
+GFLOPS:       9.7162
+GFLOPS/W:     0.1027
+
+--- Threads: 32 ---
+Matrix size:  1024x1024
+Threads:      32
+Time:         0.2229 seconds
+Energy:       21.1073 Joules
+GFLOPS:       9.6351
+GFLOPS/W:     0.1017
+
+############################################
+  Matrix Size: 2048x2048
+############################################
+
+--- Threads: 1 ---
+Matrix size:  2048x2048
+Threads:      1
+Time:         69.6786 seconds
+Energy:       1392.1971 Joules
+GFLOPS:       0.2466
+GFLOPS/W:     0.0123
+
+--- Threads: 2 ---
+Matrix size:  2048x2048
+Threads:      2
+Time:         12.0923 seconds
+Energy:       365.7720 Joules
+GFLOPS:       1.4207
+GFLOPS/W:     0.0470
+
+--- Threads: 4 ---
+Matrix size:  2048x2048
+Threads:      4
+Time:         5.6493 seconds
+Energy:       266.0300 Joules
+GFLOPS:       3.0411
+GFLOPS/W:     0.0646
+
+--- Threads: 8 ---
+Matrix size:  2048x2048
+Threads:      8
+Time:         5.1108 seconds
+Energy:       296.2726 Joules
+GFLOPS:       3.3615
+GFLOPS/W:     0.0580
+
+--- Threads: 16 ---
+Matrix size:  2048x2048
+Threads:      16
+Time:         4.3284 seconds
+Energy:       350.0084 Joules
+GFLOPS:       3.9691
+GFLOPS/W:     0.0491
+
+--- Threads: 20 ---
+Matrix size:  2048x2048
+Threads:      20
+Time:         4.9907 seconds
+Energy:       443.5925 Joules
+GFLOPS:       3.4424
+GFLOPS/W:     0.0387
+
+--- Threads: 32 ---
+Matrix size:  2048x2048
+Threads:      32
+Time:         6.4612 seconds
+Energy:       269.5872 Joules
+GFLOPS:       2.6589
+GFLOPS/W:     0.0637
+
+============================================
+  Done
+============================================
