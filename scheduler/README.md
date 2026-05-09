@@ -6,7 +6,8 @@ Bu klasör **Emir Furkan Bazlı** rolündeki teslimleri kapsar: bileşenleri bir
 
 | Görev | Bu repoda karşılığı |
 | --- | --- |
-| Zamanlayıcı mantığı ve entegrasyon | `run_benchmark.py` — ikilileri aynı girdi PGM ile çalıştırır; dizin yapısı ve çıktılar standartdır. |
+| Zamanlayıcı mantığı ve entegrasyon | `run_benchmark.py` — ikilileri aynı girdi PGM ile çalıştırır; dizin yapısı ve çıktılar standartdır; tekrarlama ile ortalamalı metrik için `--repeat N`. |
+| Checkpoint §4 güç bütçesi / cihaz seçimi | `energy_policy.choose_device()` + `decide_scheduler.py` CLI — ölçülen CPU/GPU enerji (J) ve GPU gücü (W) ile kurallı **GPU mi CPU mu** seçimi. |
 | CPU + GPU çıktı karşılaştırması | `compare_pgms.py` ve `benchmark_tools.compare_pgm_files` — PGM piksel fark özeti ve tolerans kontrolü. |
 | GFLOPS/W analizi ve grafikler | Stdout → `metrics.csv` ayrıştırması (`benchmark_tools`) + `plot_metrics.py` ile PNG grafikleri. |
 | Dokümantasyon / rapora girdi | Bu dosya + `runs/<...>/summary.json` ve `runs/<...>/stdout.txt` gibi ham kayıtlar. |
@@ -51,6 +52,12 @@ python run_benchmark.py \
   --cuda-bin ../build/cuda/image_processing_cuda \
   --omp-threads 8 \
   --cuda-blocks 8 16 32
+
+# Checkpoint: her konfigürasyon için en az 5 ölçüm + ortalamayi metrics CSVye yazmak icin:
+python run_benchmark.py \
+  ... \
+  --repeat 5 \
+  --omp-threads 1 2 4 8 16
 ```
 
 Sadece belirli görseller için:
@@ -73,8 +80,9 @@ python run_benchmark.py \
 | `sequential/<stem>/stdout.txt`, `stderr.txt` | Sequential metrik çıktısı |
 | `openmp/t<Nt>/<stem>/…` | OpenMP (`Nt` iş parçacığı) |
 | `cuda/b<B>/<stem>/…` | CUDA (`B×B` blok) |
-| `metrics.csv` | Tüm fazlar için zaman / enerji / GFLOPS / GFLOPS/W satırları |
+| `metrics.csv` | Zaman / enerji / GFLOPS / GFLOPS/W (+ `samples` = tekrar sayısı; `--repeat > 1` için ortalamalar). |
 | `summary.json` | PGM kıyasları (`comparison`) ve çıkış kodları |
+| Her varyant klasörü | Her tekrar için `stdout_01.txt` …; son tekrar ayrıca `stdout.txt` |
 
 Çıkış kodları:
 
@@ -103,6 +111,22 @@ python plot_metrics.py --csv runs/<run_adı>/metrics.csv --output-dir graphs
 Her çözünürlük ve faz için `gflops_*` ile `gflops_w_*` başlıklı PNG’ler oluşturur (Örn: `gflops_w_gaussian_512x512.png`).
 
 `GFLOPS/W` CSV’de boş ise (Energy veya güç ölçülemediyse) ilgili çubuk atlanır.
+
+## Checkpoint §4: `decide_scheduler.py` (güç bütçesi)
+
+Aynı iş yükü için ölçülen **toplam enerji (J)** ve GPU **çekiş gücü (W)** ile cihaz seçimi:
+
+```bash
+python decide_scheduler.py --budget 150 --cpu-energy 12.0 --gpu-energy 9.5 --gpu-power 120
+```
+
+GPU gücünü tek örnek `nvidia-smi` ile almak için:
+
+```bash
+python decide_scheduler.py --budget 100 --cpu-energy 8 --gpu-energy 5 --poll-gpu
+```
+
+Kural: **GPU** yalnızca `gpu_energy < cpu_energy` **ve** `gpu_power < budget` ise; aksi halde **CPU**. Enerji veya güç güvenilir değilse varsayılan **CPU** ve stdout’ta gerekçe yazdırılır.
 
 ## Rapor için önerilen test listesi
 

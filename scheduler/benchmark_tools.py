@@ -7,20 +7,25 @@ from __future__ import annotations
 import csv
 import json
 import re
+import statistics
 from dataclasses import dataclass, asdict
 from pathlib import Path
 from typing import Any, BinaryIO, Iterator
 
 import numpy as np
 
+FLOAT_METRIC_KEYS = ("time_s", "energy_j", "gflops", "gflops_w")
+
 __all__ = [
     "read_pgm_p5",
     "compare_pgm_files",
     "parse_image_pipeline_stdout",
+    "average_parsed_metric_rows",
     "append_metrics_csv",
     "write_metrics_csv",
     "write_json",
     "METRIC_FIELDNAMES",
+    "FLOAT_METRIC_KEYS",
 ]
 
 
@@ -254,6 +259,58 @@ def parse_image_pipeline_stdout(text: str) -> list[dict[str, Any]]:
     return rows
 
 
+def average_parsed_metric_rows(runs: list[list[dict[str, Any]]]) -> list[dict[str, Any]]:
+    """
+    Ayni ikiliden N kez ayristirilmis metrik dosyalari (her biri Gaussian+Sobel satirlari).
+    Sayisal kolonlari faz bakimindan ortalar; `samples` = N.
+
+    Kosum faz sayisi uyusmuyorsa veya faz yapilandirmasi kosumlar arasinda farkliysa bos liste dondurur.
+    """
+    if not runs:
+        return []
+    n = len(runs)
+    n_phases = len(runs[0])
+    by_phase: dict[str, list[dict[str, Any]]] = {}
+
+    for run in runs:
+        if len(run) != n_phases:
+            return []
+        for row in run:
+            by_phase.setdefault(row["phase"], []).append(row)
+
+    phases_in_order = [r["phase"] for r in runs[0]]
+    rows_out: list[dict[str, Any]] = []
+
+    for ph in phases_in_order:
+        grp = by_phase.get(ph)
+        if not grp or len(grp) != n:
+            return []
+
+        merged = dict(grp[0])
+        merged.pop("samples", None)
+        identical_keys = {"phase", "backend", "threads", "block", "label", "width", "height"}
+        for candidate in grp[1:]:
+            for k in identical_keys:
+                if merged.get(k) != candidate.get(k):
+                    return []
+
+        for key in FLOAT_METRIC_KEYS:
+            nums = [
+                fv
+                for item in grp
+                if (fv := _parse_float_token(str(item.get(key, "")))) is not None
+            ]
+            if nums:
+                merged[key] = f"{statistics.mean(nums):.10g}"
+            else:
+                merged[key] = ""
+
+        merged["samples"] = str(n)
+        rows_out.append(merged)
+
+    return rows_out
+
+
 METRIC_FIELDNAMES = [
     "run_name",
     "image_stem",
@@ -268,6 +325,7 @@ METRIC_FIELDNAMES = [
     "energy_j",
     "gflops",
     "gflops_w",
+    "samples",
 ]
 
 
@@ -286,6 +344,7 @@ def append_metrics_csv(
         for r in parsed_rows:
             row = {k: "" for k in METRIC_FIELDNAMES}
             row.update(r)
+            row.setdefault("samples", "")
             row["run_name"] = run_name
             row["image_stem"] = image_stem
             w.writerow(row)
