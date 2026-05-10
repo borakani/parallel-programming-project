@@ -78,53 +78,84 @@ __constant__ float d_GAUSS[25] = {
     1,  4,  7,  4, 1
 };
 
-__global__ void gaussian_blur_kernel(const float *src, float *dst, int W, int H) {
-    int x = blockIdx.x * blockDim.x + threadIdx.x;
-    int y = blockIdx.y * blockDim.y + threadIdx.y;
+/* Gaussian Blur — shared-memory tile with 2-pixel halo (5x5 stencil).
+ * Each block loads a (BS+4)x(BS+4) tile cooperatively into shared memory,
+ * then every thread reads only from shared memory. */
+template <int BS>
+__global__ void gaussian_blur_shared(const float *src, float *dst, int W, int H) {
+    constexpr int HALO = 2;
+    constexpr int TILE = BS + 2 * HALO;
+    __shared__ float sm[TILE][TILE];
+
+    int gx0 = blockIdx.x * BS - HALO;
+    int gy0 = blockIdx.y * BS - HALO;
+
+    int tid = threadIdx.y * BS + threadIdx.x;
+    int total = TILE * TILE;
+    for (int idx = tid; idx < total; idx += BS * BS) {
+        int ly = idx / TILE;
+        int lx = idx - ly * TILE;
+        int gx = gx0 + lx;
+        int gy = gy0 + ly;
+        if (gx < 0) gx = 0; else if (gx >= W) gx = W - 1;
+        if (gy < 0) gy = 0; else if (gy >= H) gy = H - 1;
+        sm[ly][lx] = src[gy * W + gx];
+    }
+    __syncthreads();
+
+    int x = blockIdx.x * BS + threadIdx.x;
+    int y = blockIdx.y * BS + threadIdx.y;
     if (x >= W || y >= H) return;
 
+    int sy = threadIdx.y + HALO;
+    int sx = threadIdx.x + HALO;
     float acc = 0.0f;
     #pragma unroll
     for (int ky = -2; ky <= 2; ky++) {
-        int ny = y + ky;
-        if (ny < 0) ny = 0;
-        else if (ny >= H) ny = H - 1;
         #pragma unroll
         for (int kx = -2; kx <= 2; kx++) {
-            int nx = x + kx;
-            if (nx < 0) nx = 0;
-            else if (nx >= W) nx = W - 1;
-            acc += src[ny * W + nx] * d_GAUSS[(ky + 2) * 5 + (kx + 2)];
+            acc += sm[sy + ky][sx + kx] * d_GAUSS[(ky + 2) * 5 + (kx + 2)];
         }
     }
     dst[y * W + x] = acc / 273.0f;
 }
 
-__global__ void sobel_kernel(const float *src, float *dst, int W, int H) {
-    int x = blockIdx.x * blockDim.x + threadIdx.x;
-    int y = blockIdx.y * blockDim.y + threadIdx.y;
+/* Sobel Edge Detection — shared-memory tile with 1-pixel halo (3x3 stencil). */
+template <int BS>
+__global__ void sobel_shared(const float *src, float *dst, int W, int H) {
+    constexpr int HALO = 1;
+    constexpr int TILE = BS + 2 * HALO;
+    __shared__ float sm[TILE][TILE];
+
+    int gx0 = blockIdx.x * BS - HALO;
+    int gy0 = blockIdx.y * BS - HALO;
+
+    int tid = threadIdx.y * BS + threadIdx.x;
+    int total = TILE * TILE;
+    for (int idx = tid; idx < total; idx += BS * BS) {
+        int ly = idx / TILE;
+        int lx = idx - ly * TILE;
+        int gx = gx0 + lx;
+        int gy = gy0 + ly;
+        if (gx < 0) gx = 0; else if (gx >= W) gx = W - 1;
+        if (gy < 0) gy = 0; else if (gy >= H) gy = H - 1;
+        sm[ly][lx] = src[gy * W + gx];
+    }
+    __syncthreads();
+
+    int x = blockIdx.x * BS + threadIdx.x;
+    int y = blockIdx.y * BS + threadIdx.y;
     if (x >= W || y >= H) return;
 
-    float Gx[9] = {-1, 0, 1, -2, 0, 2, -1, 0, 1};
-    float Gy[9] = {-1, -2, -1, 0, 0, 0, 1, 2, 1};
+    int sy = threadIdx.y + HALO;
+    int sx = threadIdx.x + HALO;
 
-    float gx = 0.0f, gy = 0.0f;
-    #pragma unroll
-    for (int ky = -1; ky <= 1; ky++) {
-        int ny = y + ky;
-        if (ny < 0) ny = 0;
-        else if (ny >= H) ny = H - 1;
-        #pragma unroll
-        for (int kx = -1; kx <= 1; kx++) {
-            int nx = x + kx;
-            if (nx < 0) nx = 0;
-            else if (nx >= W) nx = W - 1;
-            float px = src[ny * W + nx];
-            int ki = (ky + 1) * 3 + (kx + 1);
-            gx += px * Gx[ki];
-            gy += px * Gy[ki];
-        }
-    }
+    float p00 = sm[sy-1][sx-1], p01 = sm[sy-1][sx], p02 = sm[sy-1][sx+1];
+    float p10 = sm[sy  ][sx-1],                     p12 = sm[sy  ][sx+1];
+    float p20 = sm[sy+1][sx-1], p21 = sm[sy+1][sx], p22 = sm[sy+1][sx+1];
+
+    float gx = -p00 + p02 - 2.0f * p10 + 2.0f * p12 - p20 + p22;
+    float gy = -p00 - 2.0f * p01 - p02 + p20 + 2.0f * p21 + p22;
     dst[y * W + x] = sqrtf(gx * gx + gy * gy);
 }
 
@@ -143,8 +174,8 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    int block_size = atoi(argv[2]);
-    if (block_size != 8 && block_size != 16 && block_size != 32) {
+    int BS = atoi(argv[2]);
+    if (BS != 8 && BS != 16 && BS != 32) {
         fprintf(stderr, "block_size must be 8, 16, or 32\n");
         return 1;
     }
@@ -171,9 +202,8 @@ int main(int argc, char *argv[]) {
 
     CUDA_CHECK(cudaMemcpy(d_src, src->data, bytes, cudaMemcpyHostToDevice));
 
-    dim3 block(block_size, block_size);
-    dim3 grid((W + block_size - 1) / block_size,
-              (H + block_size - 1) / block_size);
+    dim3 block(BS, BS);
+    dim3 grid((W + BS - 1) / BS, (H + BS - 1) / BS);
 
     cudaEvent_t e_start, e_stop;
     CUDA_CHECK(cudaEventCreate(&e_start));
@@ -182,7 +212,9 @@ int main(int argc, char *argv[]) {
     /* === Gaussian Blur === */
     double p_before = sample_gpu_power_watts();
     CUDA_CHECK(cudaEventRecord(e_start));
-    gaussian_blur_kernel<<<grid, block>>>(d_src, d_blur, W, H);
+    if (BS == 8)       gaussian_blur_shared<8 ><<<grid, block>>>(d_src, d_blur, W, H);
+    else if (BS == 16) gaussian_blur_shared<16><<<grid, block>>>(d_src, d_blur, W, H);
+    else               gaussian_blur_shared<32><<<grid, block>>>(d_src, d_blur, W, H);
     CUDA_CHECK(cudaEventRecord(e_stop));
     CUDA_CHECK(cudaEventSynchronize(e_stop));
     double p_after = sample_gpu_power_watts();
@@ -200,7 +232,7 @@ int main(int argc, char *argv[]) {
     double gflops   = (pixels * 50.0) / (time_sec * 1e9);
     double gflops_w = (energy_j > 0) ? gflops / power_w : -1.0;
 
-    printf("=== Gaussian Blur | Block: %d ===\n", block_size);
+    printf("=== Gaussian Blur | Block: %d ===\n", BS);
     printf("Image size:  %dx%d\n", W, H);
     printf("Time:        %.4f seconds\n", time_sec);
     if (energy_j >= 0) printf("Energy:      %.4f Joules\n", energy_j);
@@ -212,7 +244,9 @@ int main(int argc, char *argv[]) {
     /* === Sobel Edge Detection === */
     p_before = sample_gpu_power_watts();
     CUDA_CHECK(cudaEventRecord(e_start));
-    sobel_kernel<<<grid, block>>>(d_blur, d_edges, W, H);
+    if (BS == 8)       sobel_shared<8 ><<<grid, block>>>(d_blur, d_edges, W, H);
+    else if (BS == 16) sobel_shared<16><<<grid, block>>>(d_blur, d_edges, W, H);
+    else               sobel_shared<32><<<grid, block>>>(d_blur, d_edges, W, H);
     CUDA_CHECK(cudaEventRecord(e_stop));
     CUDA_CHECK(cudaEventSynchronize(e_stop));
     p_after = sample_gpu_power_watts();
@@ -230,7 +264,7 @@ int main(int argc, char *argv[]) {
     gflops   = (pixels * 36.0) / (time_sec * 1e9);
     gflops_w = (energy_j > 0) ? gflops / power_w : -1.0;
 
-    printf("=== Sobel Edge Detection | Block: %d ===\n", block_size);
+    printf("=== Sobel Edge Detection | Block: %d ===\n", BS);
     printf("Image size:  %dx%d\n", W, H);
     printf("Time:        %.4f seconds\n", time_sec);
     if (energy_j >= 0) printf("Energy:      %.4f Joules\n", energy_j);
