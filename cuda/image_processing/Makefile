@@ -1,5 +1,5 @@
 NVCC      ?= nvcc
-NVCCFLAGS ?= -O3 -std=c++14
+NVCCFLAGS ?= -O3 -std=c++14 -arch=sm_75 -Wno-deprecated-gpu-targets
 TARGET    := image_processing_cuda
 SRC       := image_processing_cuda.cu
 IMAGES    := ../../images

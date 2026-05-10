@@ -1,5 +1,5 @@
 NVCC      ?= nvcc
-NVCCFLAGS ?= -O3 -std=c++14
+NVCCFLAGS ?= -O3 -std=c++14 -arch=sm_75 -Wno-deprecated-gpu-targets
 TARGET    := matrix_mult_cuda
 SRC       := matrix_mult_cuda.cu
 

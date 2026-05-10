@@ -42,7 +42,8 @@ static Image *read_pgm(const char *filename) {
     img->data = (float*)malloc((size_t)w * h * sizeof(float));
 
     unsigned char *buf = (unsigned char*)malloc((size_t)w * h);
-    fread(buf, 1, (size_t)w * h, f);
+    size_t nread = fread(buf, 1, (size_t)w * h, f);
+    (void)nread;
     for (int i = 0; i < w * h; i++) img->data[i] = (float)buf[i];
     free(buf);
     fclose(f);
@@ -208,6 +209,13 @@ int main(int argc, char *argv[]) {
     cudaEvent_t e_start, e_stop;
     CUDA_CHECK(cudaEventCreate(&e_start));
     CUDA_CHECK(cudaEventCreate(&e_stop));
+
+    /* Warmup: pay CUDA context init / JIT cost outside the timed region
+     * so the first measured kernel reflects steady-state performance. */
+    if (BS == 8)       gaussian_blur_shared<8 ><<<grid, block>>>(d_src, d_blur, W, H);
+    else if (BS == 16) gaussian_blur_shared<16><<<grid, block>>>(d_src, d_blur, W, H);
+    else               gaussian_blur_shared<32><<<grid, block>>>(d_src, d_blur, W, H);
+    CUDA_CHECK(cudaDeviceSynchronize());
 
     /* === Gaussian Blur === */
     double p_before = sample_gpu_power_watts();

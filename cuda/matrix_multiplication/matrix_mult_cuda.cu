@@ -95,6 +95,12 @@ int main(int argc, char *argv[]) {
     CUDA_CHECK(cudaEventCreate(&e_start));
     CUDA_CHECK(cudaEventCreate(&e_stop));
 
+    /* Warmup to absorb context init / JIT cost. */
+    if (BS == 8)       matmul_tiled<8 ><<<grid, block>>>(dA, dB, dC, N);
+    else if (BS == 16) matmul_tiled<16><<<grid, block>>>(dA, dB, dC, N);
+    else               matmul_tiled<32><<<grid, block>>>(dA, dB, dC, N);
+    CUDA_CHECK(cudaDeviceSynchronize());
+
     double p_before = sample_gpu_power_watts();
     CUDA_CHECK(cudaEventRecord(e_start));
 
