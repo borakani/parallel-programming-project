@@ -1,3 +1,10 @@
 runs/
 __pycache__/
 *.py[cod]
+*.o
+compare_pgms
+decide_scheduler
+run_benchmark
+compare_pgms.exe
+decide_scheduler.exe
+run_benchmark.exe

@@ -1,139 +1,74 @@
-# Scheduler — Entegrasyon, doğruluk ve GFLOPS/W analizi
+# Scheduler (C) — entegrasyon ve kıyas
 
-Bu klasör **Emir Furkan Bazlı** rolündeki teslimleri kapsar: bileşenleri bir araya getirmek (sequential referansı, OpenMP, CUDA görüntü işleme), çıktıları karşılaştırmak, metrikleri toplamak ve GFLOPS / GFLOPS/W grafiklerini üretmek ve çalıştırma sürecini belgelemek.
+Python sürümü kaldırıldı; tüm araçlar **C99/POSIX** ile burada derlenir (**Linux / WSL** önerilir). `run_benchmark` **fork/exec** kullanır; yalnızca Windows’ta `run_benchmark.exe` oluşturmak için değil, POSIX ortamda derlenmelidir.
+
+## Derleme
+
+```bash
+cd scheduler
+make clean && make all
+```
+
+Üretilen ikililer (aynı klasörde):
+
+- **`compare_pgms`** — iki PGM (P5) piksel kıyası  
+- **`decide_scheduler`** — Checkpoint güç bütçesi seçimi (`sche_policy`)  
+- **`run_benchmark`** — sırayla sequential / OpenMP / CUDA görüntü işleme ve `metrics.csv`
 
 ## Görev özeti
 
-| Görev | Bu repoda karşılığı |
+| Görev | C karşılığı |
 | --- | --- |
-| Zamanlayıcı mantığı ve entegrasyon | `run_benchmark.py` — ikilileri aynı girdi PGM ile çalıştırır; dizin yapısı ve çıktılar standartdır; tekrarlama ile ortalamalı metrik için `--repeat N`. |
-| Checkpoint §4 güç bütçesi / cihaz seçimi | `energy_policy.choose_device()` + `decide_scheduler.py` CLI — ölçülen CPU/GPU enerji (J) ve GPU gücü (W) ile kurallı **GPU mi CPU mu** seçimi. |
-| CPU + GPU çıktı karşılaştırması | `compare_pgms.py` ve `benchmark_tools.compare_pgm_files` — PGM piksel fark özeti ve tolerans kontrolü. |
-| GFLOPS/W analizi ve grafikler | Stdout → `metrics.csv` ayrıştırması (`benchmark_tools`) + `plot_metrics.py` ile PNG grafikleri. |
-| Dokümantasyon / rapora girdi | Bu dosya + `runs/<...>/summary.json` ve `runs/<...>/stdout.txt` gibi ham kayıtlar. |
+| Zamanlayıcı ve entegrasyon | `run_benchmark.c` + `sche_execposix.c` |
+| Checkpoint güç bütçesi | `sche_policy.c` + `decide_scheduler.c` |
+| PGM kıyas | `sche_pgm.c` + `compare_pgms.c` |
+| Metrik çıktısı | `sche_metric_parse.c`, `sche_metric_avg.c`, `sche_csv.c` |
+| Grafikler | Bu sürümde otomatik PNG yok — `metrics.csv`’yi tablo/grafik aracına aktarın. |
 
-CUDA tarafında stdout ve dosya adları için ekip arkadaşların verdiği sözdizimine uy; referans çıktılar **Sequential** üretimi kabul edilir.
+## `run_benchmark`
 
-## Dal ve Git notları
-
-Çalışmalar **`scheduler`** dalında yapılmalı; **`main` dalına doğrudan commit/push etmeyin** — birleştirmeyi sorumlu yapacak.
-
-Her gün: GitHub Desktop’ta **Fetch origin** → gerekiyorsa **Pull**.
-
-## Ön koşullar
-
-- Üç ikiliyi de (veya sırayla derleyerek) oluşturun:
-  - `sequential` dalı → `image_processing`
-  - `openmp` dalı → `image_processing_omp`
-  - `cuda` dalı → `image_processing_cuda`
-- PGM girdiler: `images/512x512.pgm`, `images/1024x1024.pgm`, `images/7680x4320.pgm`
-- Python 3.10+ önerilir. Grafik için:
+**Ortak:** `--repo` varsayılan `.` (`./images/*.pgm` aranır), `--output-dir` varsayılan `scheduler/runs`, `--run-name` boşsa UTC zaman damgası, `--repeat` varsayılan `1`, `--compare-threshold` varsayılan `3`.
 
 ```bash
-cd scheduler
-pip install -r requirements.txt
-```
-
-Ölçüm notları:
-
-- Sequential / OpenMP enerji için `/sys/class/powercap/...` (Intel RAPL) okunması bazen **`sudo`** veya uygun izin gerektirir (yoksa `Energy: N/A` normaldir).
-- CUDA enerji yaklaşımı `nvidia-smi` gücü × çekirdek süresi; Linux + NVIDIA ortamında test edilir.
-
-## Toplu doğruluk ve zamanlama: `run_benchmark.py`
-
-Çalıştırma klasöründe betik klasörüdür (`scheduler`). Örnek (ikili yollarını kendi build dizininize göre değiştirin):
-
-```bash
-cd scheduler
-
-python run_benchmark.py \
-  --seq-bin ../build/seq/image_processing \
-  --omp-bin ../build/omp/image_processing_omp \
-  --cuda-bin ../build/cuda/image_processing_cuda \
+./run_benchmark \
+  --seq-bin /tam/yol/image_processing \
+  --omp-bin /tam/yol/image_processing_omp \
+  --cuda-bin /tam/yol/image_processing_cuda \
   --omp-threads 8 \
-  --cuda-blocks 8 16 32
-
-# Checkpoint: her konfigürasyon için en az 5 ölçüm + ortalamayi metrics CSVye yazmak icin:
-python run_benchmark.py \
-  ... \
-  --repeat 5 \
-  --omp-threads 1 2 4 8 16
+  --cuda-blocks 8,16,32 \
+  --repeat 5
 ```
 
-Sadece belirli görseller için:
+Liste virgülle (`--omp-threads 1,2,4,8`). Özel PGM: `--image yol.pgm` (birden çok `--image` kullanılabilir).
+
+Çıkış klasörü: `--output-dir` / `--run-name` / `{sequential,openmp,cuda}/…` yapısı Python sürümüyle uyumludur. Her tekrar `stdout_KK.txt`; `metrics.csv` içinde `samples` ve ortalanmış süreler/enerji.
+
+Çıkış kodları yaklaşık: `0` tamam; `1` PGM kıyas tolerans üstü; `2` ikili hatası veya eksik PGM.
+
+## `compare_pgms`
 
 ```bash
-python run_benchmark.py \
-  --seq-bin ../build/seq/image_processing \
-  --omp-bin ../build/omp/image_processing_omp \
-  --cuda-bin ../build/cuda/image_processing_cuda \
-  --image ../images/512x512.pgm \
-  --image ../images/1024x1024.pgm
+./compare_pgms -t 3 ref.pgm tst.pgm
 ```
 
-### Üretilen yapı
+Uyum için çıkış `0`; değilse `1`; argüman hatası `2`.
 
-`scheduler/runs/<run_adı>/` altında özetle:
-
-| Yol | Açıklama |
-| --- | --- |
-| `sequential/<stem>/stdout.txt`, `stderr.txt` | Sequential metrik çıktısı |
-| `openmp/t<Nt>/<stem>/…` | OpenMP (`Nt` iş parçacığı) |
-| `cuda/b<B>/<stem>/…` | CUDA (`B×B` blok) |
-| `metrics.csv` | Zaman / enerji / GFLOPS / GFLOPS/W (+ `samples` = tekrar sayısı; `--repeat > 1` için ortalamalar). |
-| `summary.json` | PGM kıyasları (`comparison`) ve çıkış kodları |
-| Her varyant klasörü | Her tekrar için `stdout_01.txt` …; son tekrar ayrıca `stdout.txt` |
-
-Çıkış kodları:
-
-- `0`: ikililer düzgün, PGM kıyasları tolerans içinde ve eksik dosya yok.
-- `1`: programlar çalışmış olabilir; en az bir kıyas tolerans üstü veya çıktı eksik.
-- `2`: Sequential / OpenMP / CUDA süreçlerinden biri hata koduyla dönmüş (`stderr.txt` bakın).
-
-Piksel toleransı için `--compare-threshold` (varsayılan `3`; ` uchar` çıktılar için uygun).
-
-### İki PGM’yi tek başına karşılaştırma
+## `decide_scheduler`
 
 ```bash
-python compare_pgms.py path/to/a.pgm path/to/b.pgm --threshold 3
+./decide_scheduler --budget 150 --cpu-energy 12 --gpu-energy 9 --gpu-power 120
+
+./decide_scheduler --budget 100 --cpu-energy 8 --gpu-energy 5 --poll-gpu
+
 ```
 
-Uyumlu ise çıkış `0`; aksi halde `1`.
+İsteğe bağlı `--exit-code` (`GPU` → 0).
 
-## Grafik üretimi: `plot_metrics.py`
+## Ölçüm notları
 
-`run_benchmark` sonrası:
+- RAPL / `nvidia-smi` için izin ve ortam aynı; enerji satırı bazen `N/A`.
 
-```bash
-python plot_metrics.py --csv runs/<run_adı>/metrics.csv --output-dir graphs
-```
+## Dal
 
-Her çözünürlük ve faz için `gflops_*` ile `gflops_w_*` başlıklı PNG’ler oluşturur (Örn: `gflops_w_gaussian_512x512.png`).
+Değişiklikler **`scheduler`** dalına; **`main`**’e doğrudan push etmeyin (takım politikası).
 
-`GFLOPS/W` CSV’de boş ise (Energy veya güç ölçülemediyse) ilgili çubuk atlanır.
-
-## Checkpoint §4: `decide_scheduler.py` (güç bütçesi)
-
-Aynı iş yükü için ölçülen **toplam enerji (J)** ve GPU **çekiş gücü (W)** ile cihaz seçimi:
-
-```bash
-python decide_scheduler.py --budget 150 --cpu-energy 12.0 --gpu-energy 9.5 --gpu-power 120
-```
-
-GPU gücünü tek örnek `nvidia-smi` ile almak için:
-
-```bash
-python decide_scheduler.py --budget 100 --cpu-energy 8 --gpu-energy 5 --poll-gpu
-```
-
-Kural: **GPU** yalnızca `gpu_energy < cpu_energy` **ve** `gpu_power < budget` ise; aksi halde **CPU**. Enerji veya güç güvenilir değilse varsayılan **CPU** ve stdout’ta gerekçe yazdırılır.
-
-## Rapor için önerilen test listesi
-
-1. Sequential referans doğrulaması — referans PGM’leri `sequential/` çalıştırmasından üretin.
-2. OpenMP doğruluğu — aynı girdi PGM; `runs/.../openmp/.../comparison` ile diff özetleri.
-3. CUDA doğruluğu — bloklar **8, 16, 32** için aynı kıyas.
-4. Performans karşılığı — `metrics.csv` + grafikleri rapora yapıştırın; blok ve iş parçacığı etiketi başlıkta belirtilsin.
-5. Energy / GFLOPS/W — ölçülemeyen satırlar için “ölçüm koşulu” notu yazın (`N/A`, yetkisiz RAPL vb.).
-
-Bu akış eksiksiz ise entegrasyon, doğruluk ve grafik üretimi ekip gereksinimleriyle uyumludur; matris çarpımı gibi başka bileşenler eklendiğinde aynı desen (`stdout` düzeni + PGM veya çıktı dosyası + CSV) yeniden kullanılabilir.
