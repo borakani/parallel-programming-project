@@ -1,0 +1,162 @@
+================================================================
+>>> 512x512.pgm | block 8
+================================================================
+=== Gaussian Blur | Block: 8 ===
+Image size:  512x512
+Time:        0.0001 seconds
+Energy:      0.0017 Joules
+GFLOPS:      222.4878
+GFLOPS/W:    7.5089
+
+=== Sobel Edge Detection | Block: 8 ===
+Image size:  512x512
+Time:        0.0001 seconds
+Energy:      0.0025 Joules
+GFLOPS:      107.1239
+GFLOPS/W:    3.7521
+
+
+================================================================
+>>> 512x512.pgm | block 16
+================================================================
+=== Gaussian Blur | Block: 16 ===
+Image size:  512x512
+Time:        0.0000 seconds
+Energy:      0.0013 Joules
+GFLOPS:      304.7619
+GFLOPS/W:    9.8612
+
+=== Sobel Edge Detection | Block: 16 ===
+Image size:  512x512
+Time:        0.0001 seconds
+Energy:      0.0030 Joules
+GFLOPS:      95.5645
+GFLOPS/W:    3.1623
+
+
+================================================================
+>>> 512x512.pgm | block 32
+================================================================
+=== Gaussian Blur | Block: 32 ===
+Image size:  512x512
+Time:        0.0000 seconds
+Energy:      0.0014 Joules
+GFLOPS:      339.0728
+GFLOPS/W:    9.4135
+
+=== Sobel Edge Detection | Block: 32 ===
+Image size:  512x512
+Time:        0.0001 seconds
+Energy:      0.0028 Joules
+GFLOPS:      118.6291
+GFLOPS/W:    3.3711
+
+
+================================================================
+>>> 1024x1024.pgm | block 8
+================================================================
+=== Gaussian Blur | Block: 8 ===
+Image size:  1080x1080
+Time:        0.0001 seconds
+Energy:      0.0040 Joules
+GFLOPS:      522.3560
+GFLOPS/W:    14.7475
+
+=== Sobel Edge Detection | Block: 8 ===
+Image size:  1080x1080
+Time:        0.0001 seconds
+Energy:      0.0043 Joules
+GFLOPS:      346.3183
+GFLOPS/W:    9.7775
+
+
+================================================================
+>>> 1024x1024.pgm | block 16
+================================================================
+=== Gaussian Blur | Block: 16 ===
+Image size:  1080x1080
+Time:        0.0001 seconds
+Energy:      0.0041 Joules
+GFLOPS:      547.6262
+GFLOPS/W:    14.2019
+
+=== Sobel Edge Detection | Block: 16 ===
+Image size:  1080x1080
+Time:        0.0001 seconds
+Energy:      0.0043 Joules
+GFLOPS:      346.4097
+GFLOPS/W:    9.7801
+
+
+================================================================
+>>> 1024x1024.pgm | block 32
+================================================================
+=== Gaussian Blur | Block: 32 ===
+Image size:  1080x1080
+Time:        0.0001 seconds
+Energy:      0.0036 Joules
+GFLOPS:      575.1026
+GFLOPS/W:    16.2367
+
+=== Sobel Edge Detection | Block: 32 ===
+Image size:  1080x1080
+Time:        0.0001 seconds
+Energy:      0.0043 Joules
+GFLOPS:      342.6110
+GFLOPS/W:    9.6728
+
+
+================================================================
+>>> 7680x4320.pgm | block 8
+================================================================
+=== Gaussian Blur | Block: 8 ===
+Image size:  7680x4320
+Time:        0.0025 seconds
+Energy:      0.0964 Joules
+GFLOPS:      652.6994
+GFLOPS/W:    17.2125
+
+=== Sobel Edge Detection | Block: 8 ===
+Image size:  7680x4320
+Time:        0.0016 seconds
+Energy:      0.0590 Joules
+GFLOPS:      768.1423
+GFLOPS/W:    20.2302
+
+
+================================================================
+>>> 7680x4320.pgm | block 16
+================================================================
+=== Gaussian Blur | Block: 16 ===
+Image size:  7680x4320
+Time:        0.0030 seconds
+Energy:      0.1017 Joules
+GFLOPS:      558.6929
+GFLOPS/W:    16.3170
+
+=== Sobel Edge Detection | Block: 16 ===
+Image size:  7680x4320
+Time:        0.0020 seconds
+Energy:      0.0695 Joules
+GFLOPS:      588.4965
+GFLOPS/W:    17.1874
+
+
+================================================================
+>>> 7680x4320.pgm | block 32
+================================================================
+=== Gaussian Blur | Block: 32 ===
+Image size:  7680x4320
+Time:        0.0031 seconds
+Energy:      0.0977 Joules
+GFLOPS:      533.0865
+GFLOPS/W:    16.9773
+
+=== Sobel Edge Detection | Block: 32 ===
+Image size:  7680x4320
+Time:        0.0023 seconds
+Energy:      0.0732 Joules
+GFLOPS:      514.0024
+GFLOPS/W:    16.3227
+
+

@@ -1,0 +1,234 @@
+================================================================
+>>> profile: 512x512.pgm | block 8
+================================================================
+======== Warning: Skipping profiling on device 0 since profiling is not supported on devices with compute capability 7.5 and higher.
+                  Use NVIDIA Nsight Compute for GPU profiling and NVIDIA Nsight Systems for GPU tracing and CPU sampling.
+                  Refer https://developer.nvidia.com/tools-overview for more details.
+
+==5008== NVPROF is profiling process 5008, command: ./image_processing_cuda ../../images/512x512.pgm 8
+==5008== Profiling application: ./image_processing_cuda ../../images/512x512.pgm 8
+=== Gaussian Blur | Block: 8 ===
+Image size:  512x512
+Time:        0.0001 seconds
+Energy:      0.0019 Joules
+GFLOPS:      202.0720
+GFLOPS/W:    7.0286
+
+=== Sobel Edge Detection | Block: 8 ===
+Image size:  512x512
+Time:        0.0001 seconds
+Energy:      0.0028 Joules
+GFLOPS:      97.0424
+GFLOPS/W:    3.3872
+
+==5008== Profiling result:
+No events/metrics were profiled.
+
+================================================================
+>>> profile: 512x512.pgm | block 16
+================================================================
+======== Warning: Skipping profiling on device 0 since profiling is not supported on devices with compute capability 7.5 and higher.
+                  Use NVIDIA Nsight Compute for GPU profiling and NVIDIA Nsight Systems for GPU tracing and CPU sampling.
+                  Refer https://developer.nvidia.com/tools-overview for more details.
+
+==5031== NVPROF is profiling process 5031, command: ./image_processing_cuda ../../images/512x512.pgm 16
+=== Gaussian Blur | Block: 16 ===
+Image size:  512x512
+Time:        0.0001 seconds
+Energy:      0.0018 Joules
+GFLOPS:      208.2359
+GFLOPS/W:    7.3426
+
+=== Sobel Edge Detection | Block: 16 ===
+Image size:  512x512
+Time:        0.0001 seconds
+Energy:      0.0015 Joules
+GFLOPS:      176.5940
+GFLOPS/W:    6.2269
+
+==5031== Profiling application: ./image_processing_cuda ../../images/512x512.pgm 16
+==5031== Profiling result:
+No events/metrics were profiled.
+
+================================================================
+>>> profile: 512x512.pgm | block 32
+================================================================
+======== Warning: Skipping profiling on device 0 since profiling is not supported on devices with compute capability 7.5 and higher.
+                  Use NVIDIA Nsight Compute for GPU profiling and NVIDIA Nsight Systems for GPU tracing and CPU sampling.
+                  Refer https://developer.nvidia.com/tools-overview for more details.
+
+==5058== NVPROF is profiling process 5058, command: ./image_processing_cuda ../../images/512x512.pgm 32
+=== Gaussian Blur | Block: 32 ===
+Image size:  512x512
+Time:        0.0001 seconds
+Energy:      0.0016 Joules
+GFLOPS:      229.2110
+GFLOPS/W:    8.0822
+
+=== Sobel Edge Detection | Block: 32 ===
+Image size:  512x512
+Time:        0.0001 seconds
+Energy:      0.0015 Joules
+GFLOPS:      176.2773
+GFLOPS/W:    6.2157
+
+==5058== Profiling application: ./image_processing_cuda ../../images/512x512.pgm 32
+==5058== Profiling result:
+No events/metrics were profiled.
+
+================================================================
+>>> profile: 1024x1024.pgm | block 8
+================================================================
+======== Warning: Skipping profiling on device 0 since profiling is not supported on devices with compute capability 7.5 and higher.
+                  Use NVIDIA Nsight Compute for GPU profiling and NVIDIA Nsight Systems for GPU tracing and CPU sampling.
+                  Refer https://developer.nvidia.com/tools-overview for more details.
+
+==5085== NVPROF is profiling process 5085, command: ./image_processing_cuda ../../images/1024x1024.pgm 8
+=== Gaussian Blur | Block: 8 ===
+Image size:  1080x1080
+Time:        0.0002 seconds
+Energy:      0.0050 Joules
+GFLOPS:      332.8159
+GFLOPS/W:    11.6166
+
+=== Sobel Edge Detection | Block: 8 ===
+Image size:  1080x1080
+Time:        0.0001 seconds
+Energy:      0.0038 Joules
+GFLOPS:      316.8800
+GFLOPS/W:    11.0604
+
+==5085== Profiling application: ./image_processing_cuda ../../images/1024x1024.pgm 8
+==5085== Profiling result:
+No events/metrics were profiled.
+
+================================================================
+>>> profile: 1024x1024.pgm | block 16
+================================================================
+======== Warning: Skipping profiling on device 0 since profiling is not supported on devices with compute capability 7.5 and higher.
+                  Use NVIDIA Nsight Compute for GPU profiling and NVIDIA Nsight Systems for GPU tracing and CPU sampling.
+                  Refer https://developer.nvidia.com/tools-overview for more details.
+
+==5108== NVPROF is profiling process 5108, command: ./image_processing_cuda ../../images/1024x1024.pgm 16
+=== Gaussian Blur | Block: 16 ===
+Image size:  1080x1080
+Time:        0.0002 seconds
+Energy:      0.0052 Joules
+GFLOPS:      316.4062
+GFLOPS/W:    11.1215
+
+=== Sobel Edge Detection | Block: 16 ===
+Image size:  1080x1080
+Time:        0.0001 seconds
+Energy:      0.0039 Joules
+GFLOPS:      303.8907
+GFLOPS/W:    10.6816
+
+==5108== Profiling application: ./image_processing_cuda ../../images/1024x1024.pgm 16
+==5108== Profiling result:
+No events/metrics were profiled.
+
+================================================================
+>>> profile: 1024x1024.pgm | block 32
+================================================================
+======== Warning: Skipping profiling on device 0 since profiling is not supported on devices with compute capability 7.5 and higher.
+                  Use NVIDIA Nsight Compute for GPU profiling and NVIDIA Nsight Systems for GPU tracing and CPU sampling.
+                  Refer https://developer.nvidia.com/tools-overview for more details.
+
+==5138== NVPROF is profiling process 5138, command: ./image_processing_cuda ../../images/1024x1024.pgm 32
+=== Gaussian Blur | Block: 32 ===
+Image size:  1080x1080
+Time:        0.0002 seconds
+Energy:      0.0048 Joules
+GFLOPS:      343.1557
+GFLOPS/W:    12.0617
+
+=== Sobel Edge Detection | Block: 32 ===
+Image size:  1080x1080
+Time:        0.0001 seconds
+Energy:      0.0038 Joules
+GFLOPS:      311.7605
+GFLOPS/W:    10.9582
+
+==5138== Profiling application: ./image_processing_cuda ../../images/1024x1024.pgm 32
+==5138== Profiling result:
+No events/metrics were profiled.
+
+================================================================
+>>> profile: 7680x4320.pgm | block 8
+================================================================
+======== Warning: Skipping profiling on device 0 since profiling is not supported on devices with compute capability 7.5 and higher.
+                  Use NVIDIA Nsight Compute for GPU profiling and NVIDIA Nsight Systems for GPU tracing and CPU sampling.
+                  Refer https://developer.nvidia.com/tools-overview for more details.
+
+==5165== NVPROF is profiling process 5165, command: ./image_processing_cuda ../../images/7680x4320.pgm 8
+=== Gaussian Blur | Block: 8 ===
+Image size:  7680x4320
+Time:        0.0041 seconds
+Energy:      0.1191 Joules
+GFLOPS:      400.4573
+GFLOPS/W:    13.9289
+
+=== Sobel Edge Detection | Block: 8 ===
+Image size:  7680x4320
+Time:        0.0025 seconds
+Energy:      0.0742 Joules
+GFLOPS:      477.5191
+GFLOPS/W:    16.0862
+
+==5165== Profiling application: ./image_processing_cuda ../../images/7680x4320.pgm 8
+==5165== Profiling result:
+No events/metrics were profiled.
+
+================================================================
+>>> profile: 7680x4320.pgm | block 16
+================================================================
+======== Warning: Skipping profiling on device 0 since profiling is not supported on devices with compute capability 7.5 and higher.
+                  Use NVIDIA Nsight Compute for GPU profiling and NVIDIA Nsight Systems for GPU tracing and CPU sampling.
+                  Refer https://developer.nvidia.com/tools-overview for more details.
+
+==5192== NVPROF is profiling process 5192, command: ./image_processing_cuda ../../images/7680x4320.pgm 16
+=== Gaussian Blur | Block: 16 ===
+Image size:  7680x4320
+Time:        0.0044 seconds
+Energy:      0.1274 Joules
+GFLOPS:      380.0559
+GFLOPS/W:    13.0201
+
+=== Sobel Edge Detection | Block: 16 ===
+Image size:  7680x4320
+Time:        0.0027 seconds
+Energy:      0.0801 Joules
+GFLOPS:      443.0559
+GFLOPS/W:    14.9027
+
+==5192== Profiling application: ./image_processing_cuda ../../images/7680x4320.pgm 16
+==5192== Profiling result:
+No events/metrics were profiled.
+
+================================================================
+>>> profile: 7680x4320.pgm | block 32
+================================================================
+======== Warning: Skipping profiling on device 0 since profiling is not supported on devices with compute capability 7.5 and higher.
+                  Use NVIDIA Nsight Compute for GPU profiling and NVIDIA Nsight Systems for GPU tracing and CPU sampling.
+                  Refer https://developer.nvidia.com/tools-overview for more details.
+
+==5219== NVPROF is profiling process 5219, command: ./image_processing_cuda ../../images/7680x4320.pgm 32
+=== Gaussian Blur | Block: 32 ===
+Image size:  7680x4320
+Time:        0.0040 seconds
+Energy:      0.1162 Joules
+GFLOPS:      410.3571
+GFLOPS/W:    14.2733
+
+=== Sobel Edge Detection | Block: 32 ===
+Image size:  7680x4320
+Time:        0.0030 seconds
+Energy:      0.0865 Joules
+GFLOPS:      402.2849
+GFLOPS/W:    13.8100
+
+==5219== Profiling application: ./image_processing_cuda ../../images/7680x4320.pgm 32
+==5219== Profiling result:
+No events/metrics were profiled.
+
