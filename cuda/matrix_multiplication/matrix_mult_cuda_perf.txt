@@ -1,0 +1,216 @@
+================================================================
+>>> profile: N=256 | block 8
+================================================================
+======== Warning: Skipping profiling on device 0 since profiling is not supported on devices with compute capability 7.5 and higher.
+                  Use NVIDIA Nsight Compute for GPU profiling and NVIDIA Nsight Systems for GPU tracing and CPU sampling.
+                  Refer https://developer.nvidia.com/tools-overview for more details.
+
+==8493== NVPROF is profiling process 8493, command: ./matrix_mult_cuda 256 8
+=== Matrix Multiplication | Block: 8 ===
+Matrix size: 256x256
+Time:        0.0002 seconds
+Energy:      0.0063 Joules
+GFLOPS:      195.4840
+GFLOPS/W:    5.3200
+==8493== Profiling application: ./matrix_mult_cuda 256 8
+==8493== Profiling result:
+No events/metrics were profiled.
+
+================================================================
+>>> profile: N=256 | block 16
+================================================================
+======== Warning: Skipping profiling on device 0 since profiling is not supported on devices with compute capability 7.5 and higher.
+                  Use NVIDIA Nsight Compute for GPU profiling and NVIDIA Nsight Systems for GPU tracing and CPU sampling.
+                  Refer https://developer.nvidia.com/tools-overview for more details.
+
+==8510== NVPROF is profiling process 8510, command: ./matrix_mult_cuda 256 16
+=== Matrix Multiplication | Block: 16 ===
+Matrix size: 256x256
+Time:        0.0002 seconds
+Energy:      0.0071 Joules
+GFLOPS:      183.8317
+GFLOPS/W:    4.7428
+==8510== Profiling application: ./matrix_mult_cuda 256 16
+==8510== Profiling result:
+No events/metrics were profiled.
+
+================================================================
+>>> profile: N=256 | block 32
+================================================================
+======== Warning: Skipping profiling on device 0 since profiling is not supported on devices with compute capability 7.5 and higher.
+                  Use NVIDIA Nsight Compute for GPU profiling and NVIDIA Nsight Systems for GPU tracing and CPU sampling.
+                  Refer https://developer.nvidia.com/tools-overview for more details.
+
+==8531== NVPROF is profiling process 8531, command: ./matrix_mult_cuda 256 32
+=== Matrix Multiplication | Block: 32 ===
+Matrix size: 256x256
+Time:        0.0002 seconds
+Energy:      0.0073 Joules
+GFLOPS:      161.1706
+GFLOPS/W:    4.5748
+==8531== Profiling application: ./matrix_mult_cuda 256 32
+==8531== Profiling result:
+No events/metrics were profiled.
+
+================================================================
+>>> profile: N=512 | block 8
+================================================================
+======== Warning: Skipping profiling on device 0 since profiling is not supported on devices with compute capability 7.5 and higher.
+                  Use NVIDIA Nsight Compute for GPU profiling and NVIDIA Nsight Systems for GPU tracing and CPU sampling.
+                  Refer https://developer.nvidia.com/tools-overview for more details.
+
+==8548== NVPROF is profiling process 8548, command: ./matrix_mult_cuda 512 8
+==8548== Profiling application: ./matrix_mult_cuda 512 8
+=== Matrix Multiplication | Block: 8 ===
+Matrix size: 512x512
+Time:        0.0014 seconds
+Energy:      0.0447 Joules
+GFLOPS:      193.9428
+GFLOPS/W:    6.0091
+==8548== Profiling result:
+No events/metrics were profiled.
+
+================================================================
+>>> profile: N=512 | block 16
+================================================================
+======== Warning: Skipping profiling on device 0 since profiling is not supported on devices with compute capability 7.5 and higher.
+                  Use NVIDIA Nsight Compute for GPU profiling and NVIDIA Nsight Systems for GPU tracing and CPU sampling.
+                  Refer https://developer.nvidia.com/tools-overview for more details.
+
+==8569== NVPROF is profiling process 8569, command: ./matrix_mult_cuda 512 16
+==8569== Profiling application: ./matrix_mult_cuda 512 16
+=== Matrix Multiplication | Block: 16 ===
+Matrix size: 512x512
+Time:        0.0015 seconds
+Energy:      0.0469 Joules
+GFLOPS:      176.2942
+GFLOPS/W:    5.7220
+==8569== Profiling result:
+No events/metrics were profiled.
+
+================================================================
+>>> profile: N=512 | block 32
+================================================================
+======== Warning: Skipping profiling on device 0 since profiling is not supported on devices with compute capability 7.5 and higher.
+                  Use NVIDIA Nsight Compute for GPU profiling and NVIDIA Nsight Systems for GPU tracing and CPU sampling.
+                  Refer https://developer.nvidia.com/tools-overview for more details.
+
+==8589== NVPROF is profiling process 8589, command: ./matrix_mult_cuda 512 32
+=== Matrix Multiplication | Block: 32 ===
+Matrix size: 512x512
+Time:        0.0016 seconds
+Energy:      0.0506 Joules
+GFLOPS:      166.1867
+GFLOPS/W:    5.3078
+==8589== Profiling application: ./matrix_mult_cuda 512 32
+==8589== Profiling result:
+No events/metrics were profiled.
+
+================================================================
+>>> profile: N=1024 | block 8
+================================================================
+======== Warning: Skipping profiling on device 0 since profiling is not supported on devices with compute capability 7.5 and higher.
+                  Use NVIDIA Nsight Compute for GPU profiling and NVIDIA Nsight Systems for GPU tracing and CPU sampling.
+                  Refer https://developer.nvidia.com/tools-overview for more details.
+
+==8610== NVPROF is profiling process 8610, command: ./matrix_mult_cuda 1024 8
+=== Matrix Multiplication | Block: 8 ===
+Matrix size: 1024x1024
+Time:        0.0109 seconds
+Energy:      0.4660 Joules
+GFLOPS:      196.2781
+GFLOPS/W:    4.6085
+==8610== Profiling application: ./matrix_mult_cuda 1024 8
+==8610== Profiling result:
+No events/metrics were profiled.
+
+================================================================
+>>> profile: N=1024 | block 16
+================================================================
+======== Warning: Skipping profiling on device 0 since profiling is not supported on devices with compute capability 7.5 and higher.
+                  Use NVIDIA Nsight Compute for GPU profiling and NVIDIA Nsight Systems for GPU tracing and CPU sampling.
+                  Refer https://developer.nvidia.com/tools-overview for more details.
+
+==8631== NVPROF is profiling process 8631, command: ./matrix_mult_cuda 1024 16
+=== Matrix Multiplication | Block: 16 ===
+Matrix size: 1024x1024
+Time:        0.0108 seconds
+Energy:      0.3566 Joules
+GFLOPS:      199.6379
+GFLOPS/W:    6.0223
+==8631== Profiling application: ./matrix_mult_cuda 1024 16
+==8631== Profiling result:
+No events/metrics were profiled.
+
+================================================================
+>>> profile: N=1024 | block 32
+================================================================
+======== Warning: Skipping profiling on device 0 since profiling is not supported on devices with compute capability 7.5 and higher.
+                  Use NVIDIA Nsight Compute for GPU profiling and NVIDIA Nsight Systems for GPU tracing and CPU sampling.
+                  Refer https://developer.nvidia.com/tools-overview for more details.
+
+==8648== NVPROF is profiling process 8648, command: ./matrix_mult_cuda 1024 32
+=== Matrix Multiplication | Block: 32 ===
+Matrix size: 1024x1024
+Time:        0.0117 seconds
+Energy:      0.3653 Joules
+GFLOPS:      183.4914
+GFLOPS/W:    5.8793
+==8648== Profiling application: ./matrix_mult_cuda 1024 32
+==8648== Profiling result:
+No events/metrics were profiled.
+
+================================================================
+>>> profile: N=2048 | block 8
+================================================================
+======== Warning: Skipping profiling on device 0 since profiling is not supported on devices with compute capability 7.5 and higher.
+                  Use NVIDIA Nsight Compute for GPU profiling and NVIDIA Nsight Systems for GPU tracing and CPU sampling.
+                  Refer https://developer.nvidia.com/tools-overview for more details.
+
+==8669== NVPROF is profiling process 8669, command: ./matrix_mult_cuda 2048 8
+=== Matrix Multiplication | Block: 8 ===
+Matrix size: 2048x2048
+Time:        0.0949 seconds
+Energy:      4.9849 Joules
+GFLOPS:      181.0731
+GFLOPS/W:    3.4464
+==8669== Profiling application: ./matrix_mult_cuda 2048 8
+==8669== Profiling result:
+No events/metrics were profiled.
+
+================================================================
+>>> profile: N=2048 | block 16
+================================================================
+======== Warning: Skipping profiling on device 0 since profiling is not supported on devices with compute capability 7.5 and higher.
+                  Use NVIDIA Nsight Compute for GPU profiling and NVIDIA Nsight Systems for GPU tracing and CPU sampling.
+                  Refer https://developer.nvidia.com/tools-overview for more details.
+
+==8690== NVPROF is profiling process 8690, command: ./matrix_mult_cuda 2048 16
+=== Matrix Multiplication | Block: 16 ===
+Matrix size: 2048x2048
+Time:        0.0773 seconds
+Energy:      4.5497 Joules
+GFLOPS:      222.1638
+GFLOPS/W:    3.7760
+==8690== Profiling application: ./matrix_mult_cuda 2048 16
+==8690== Profiling result:
+No events/metrics were profiled.
+
+================================================================
+>>> profile: N=2048 | block 32
+================================================================
+======== Warning: Skipping profiling on device 0 since profiling is not supported on devices with compute capability 7.5 and higher.
+                  Use NVIDIA Nsight Compute for GPU profiling and NVIDIA Nsight Systems for GPU tracing and CPU sampling.
+                  Refer https://developer.nvidia.com/tools-overview for more details.
+
+==8711== NVPROF is profiling process 8711, command: ./matrix_mult_cuda 2048 32
+=== Matrix Multiplication | Block: 32 ===
+Matrix size: 2048x2048
+Time:        0.0737 seconds
+Energy:      5.0727 Joules
+GFLOPS:      232.9571
+GFLOPS/W:    3.3867
+==8711== Profiling application: ./matrix_mult_cuda 2048 32
+==8711== Profiling result:
+No events/metrics were profiled.
+
