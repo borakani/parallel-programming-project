@@ -1,234 +1,1460 @@
-================================================================
->>> profile: 512x512.pgm | block 8
-================================================================
-======== Warning: Skipping profiling on device 0 since profiling is not supported on devices with compute capability 7.5 and higher.
-                  Use NVIDIA Nsight Compute for GPU profiling and NVIDIA Nsight Systems for GPU tracing and CPU sampling.
-                  Refer https://developer.nvidia.com/tools-overview for more details.
+Using profiler: ncu
 
-==5008== NVPROF is profiling process 5008, command: ./image_processing_cuda ../../images/512x512.pgm 8
-==5008== Profiling application: ./image_processing_cuda ../../images/512x512.pgm 8
+================================================================
+>>> profile: 512x512.pgm | block 8 (ncu)
+================================================================
+==PROF== Connected to process 6860 (/content/parallel-programming-project/cuda/image_processing/image_processing_cuda)
+==PROF== Profiling "gaussian_blur_shared" - 0: 0%....50%....100% - 9 passes
+==PROF== Profiling "gaussian_blur_shared" - 1: 0%....50%....100% - 9 passes
+==PROF== Profiling "sobel_shared" - 2: 0%....50%....100% - 9 passes
 === Gaussian Blur | Block: 8 ===
 Image size:  512x512
-Time:        0.0001 seconds
-Energy:      0.0019 Joules
-GFLOPS:      202.0720
-GFLOPS/W:    7.0286
+Time:        1.6355 seconds
+Energy:      46.4962 Joules
+GFLOPS:      0.0080
+GFLOPS/W:    0.0003
 
 === Sobel Edge Detection | Block: 8 ===
 Image size:  512x512
-Time:        0.0001 seconds
-Energy:      0.0028 Joules
-GFLOPS:      97.0424
-GFLOPS/W:    3.3872
+Time:        1.6294 seconds
+Energy:      47.0495 Joules
+GFLOPS:      0.0058
+GFLOPS/W:    0.0002
 
-==5008== Profiling result:
-No events/metrics were profiled.
+==PROF== Disconnected from process 6860
+[6860] image_processing_cuda@127.0.0.1
+  void gaussian_blur_shared<8>(const float *, float *, int, int) (64, 64, 1)x(8, 8, 1), Device 0, CC 7.5, Invocations 2
+    Section: GPU Speed Of Light Throughput
+    ----------------------- ----------- --------- --------- ---------
+    Metric Name             Metric Unit   Minimum   Maximum   Average
+    ----------------------- ----------- --------- --------- ---------
+    DRAM Frequency                  Ghz      4.93      4.99      4.96
+    SM Frequency                    Mhz    584.40    584.58    584.49
+    Elapsed Cycles                cycle 31,470.00 31,761.00 31,615.50
+    Memory Throughput                 %     44.57     44.61     44.59
+    DRAM Throughput                   %     12.57     12.57     12.57
+    Duration                         us     53.82     54.34     54.08
+    L1/TEX Cache Throughput           %     89.18     89.23     89.21
+    L2 Cache Throughput               %     10.60     10.86     10.73
+    SM Active Cycles              cycle 29,779.90 29,860.15 29,820.03
+    Compute (SM) Throughput           %     43.03     43.04     43.04
+    ----------------------- ----------- --------- --------- ---------
+
+    Section: GPU and Memory Workload Distribution
+    -------------------------- ----------- ------------ ------------ ------------
+    Metric Name                Metric Unit      Minimum      Maximum      Average
+    -------------------------- ----------- ------------ ------------ ------------
+    Average DRAM Active Cycles       cycle    33,668.00    33,801.50    33,734.75
+    Total DRAM Elapsed Cycles        cycle 2,142,208.00 2,150,400.00 2,146,304.00
+    Average L1 Active Cycles         cycle    29,779.90    29,860.15    29,820.03
+    Total L1 Elapsed Cycles          cycle 1,256,088.00 1,256,424.00 1,256,256.00
+    Average L2 Active Cycles         cycle    36,567.09    36,741.91    36,654.50
+    Total L2 Elapsed Cycles          cycle 1,471,392.00 1,484,736.00 1,478,064.00
+    Average SM Active Cycles         cycle    29,779.90    29,860.15    29,820.03
+    Total SM Elapsed Cycles          cycle 1,256,088.00 1,256,424.00 1,256,256.00
+    Average SMSP Active Cycles       cycle    29,709.10    29,718.02    29,713.56
+    Total SMSP Elapsed Cycles        cycle 5,024,352.00 5,025,696.00 5,025,024.00
+    -------------------------- ----------- ------------ ------------ ------------
+
+    Section: Launch Statistics
+    -------------------------------- --------------- ---------- ---------- ----------
+    Metric Name                          Metric Unit    Minimum    Maximum    Average
+    -------------------------------- --------------- ---------- ---------- ----------
+    Block Size                                            64.00      64.00      64.00
+    Grid Size                                          4,096.00   4,096.00   4,096.00
+    Registers Per Thread             register/thread      26.00      26.00      26.00
+    Shared Memory Configuration Size           Kbyte      32.77      32.77      32.77
+    Driver Shared Memory Per Block        byte/block       0.00       0.00       0.00
+    Dynamic Shared Memory Per Block       byte/block       0.00       0.00       0.00
+    Static Shared Memory Per Block        byte/block     576.00     576.00     576.00
+    # SMs                                         SM      40.00      40.00      40.00
+    Stack Size                                         1,024.00   1,024.00   1,024.00
+    Threads                                   thread 262,144.00 262,144.00 262,144.00
+    # TPCs                                                20.00      20.00      20.00
+    Uses Green Context                                     0.00       0.00       0.00
+    Waves Per SM                                           6.40       6.40       6.40
+    -------------------------------- --------------- ---------- ---------- ----------
+
+    Section: Occupancy
+    ------------------------------- ----------- ------- ------- -------
+    Metric Name                     Metric Unit Minimum Maximum Average
+    ------------------------------- ----------- ------- ------- -------
+    Block Limit SM                        block   16.00   16.00   16.00
+    Block Limit Registers                 block   32.00   32.00   32.00
+    Block Limit Shared Mem                block   42.00   42.00   42.00
+    Block Limit Warps                     block   16.00   16.00   16.00
+    Theoretical Active Warps per SM        warp   32.00   32.00   32.00
+    Theoretical Occupancy                     %  100.00  100.00  100.00
+    Achieved Occupancy                        %   88.91   89.38   89.14
+    Achieved Active Warps Per SM           warp   28.45   28.60   28.53
+    ------------------------------- ----------- ------- ------- -------
+
+  void sobel_shared<8>(const float *, float *, int, int) (64, 64, 1)x(8, 8, 1), Device 0, CC 7.5, Invocations 1
+    Section: GPU Speed Of Light Throughput
+    ----------------------- ----------- --------- --------- ---------
+    Metric Name             Metric Unit   Minimum   Maximum   Average
+    ----------------------- ----------- --------- --------- ---------
+    DRAM Frequency                  Ghz      4.84      4.84      4.84
+    SM Frequency                    Mhz    583.85    583.85    583.85
+    Elapsed Cycles                cycle 17,623.00 17,623.00 17,623.00
+    Memory Throughput                 %     39.27     39.27     39.27
+    DRAM Throughput                   %     20.98     20.98     20.98
+    Duration                         us     30.18     30.18     30.18
+    L1/TEX Cache Throughput           %     78.50     78.50     78.50
+    L2 Cache Throughput               %     16.77     16.77     16.77
+    SM Active Cycles              cycle 15,688.17 15,688.17 15,688.17
+    Compute (SM) Throughput           %     36.87     36.87     36.87
+    ----------------------- ----------- --------- --------- ---------
+
+    Section: GPU and Memory Workload Distribution
+    -------------------------- ----------- ------------ ------------ ------------
+    Metric Name                Metric Unit      Minimum      Maximum      Average
+    -------------------------- ----------- ------------ ------------ ------------
+    Average DRAM Active Cycles       cycle    30,618.00    30,618.00    30,618.00
+    Total DRAM Elapsed Cycles        cycle 1,167,360.00 1,167,360.00 1,167,360.00
+    Average L1 Active Cycles         cycle    15,688.17    15,688.17    15,688.17
+    Total L1 Elapsed Cycles          cycle   685,040.00   685,040.00   685,040.00
+    Average L2 Active Cycles         cycle    20,288.62    20,288.62    20,288.62
+    Total L2 Elapsed Cycles          cycle   823,968.00   823,968.00   823,968.00
+    Average SM Active Cycles         cycle    15,688.17    15,688.17    15,688.17
+    Total SM Elapsed Cycles          cycle   685,040.00   685,040.00   685,040.00
+    Average SMSP Active Cycles       cycle    15,490.39    15,490.39    15,490.39
+    Total SMSP Elapsed Cycles        cycle 2,740,160.00 2,740,160.00 2,740,160.00
+    -------------------------- ----------- ------------ ------------ ------------
+
+    Section: Launch Statistics
+    -------------------------------- --------------- ---------- ---------- ----------
+    Metric Name                          Metric Unit    Minimum    Maximum    Average
+    -------------------------------- --------------- ---------- ---------- ----------
+    Block Size                                            64.00      64.00      64.00
+    Grid Size                                          4,096.00   4,096.00   4,096.00
+    Registers Per Thread             register/thread      26.00      26.00      26.00
+    Shared Memory Configuration Size           Kbyte      32.77      32.77      32.77
+    Driver Shared Memory Per Block        byte/block       0.00       0.00       0.00
+    Dynamic Shared Memory Per Block       byte/block       0.00       0.00       0.00
+    Static Shared Memory Per Block        byte/block     400.00     400.00     400.00
+    # SMs                                         SM      40.00      40.00      40.00
+    Stack Size                                         1,024.00   1,024.00   1,024.00
+    Threads                                   thread 262,144.00 262,144.00 262,144.00
+    # TPCs                                                20.00      20.00      20.00
+    Uses Green Context                                     0.00       0.00       0.00
+    Waves Per SM                                           6.40       6.40       6.40
+    -------------------------------- --------------- ---------- ---------- ----------
+
+    Section: Occupancy
+    ------------------------------- ----------- ------- ------- -------
+    Metric Name                     Metric Unit Minimum Maximum Average
+    ------------------------------- ----------- ------- ------- -------
+    Block Limit SM                        block   16.00   16.00   16.00
+    Block Limit Registers                 block   32.00   32.00   32.00
+    Block Limit Shared Mem                block   64.00   64.00   64.00
+    Block Limit Warps                     block   16.00   16.00   16.00
+    Theoretical Active Warps per SM        warp   32.00   32.00   32.00
+    Theoretical Occupancy                     %  100.00  100.00  100.00
+    Achieved Occupancy                        %   87.76   87.76   87.76
+    Achieved Active Warps Per SM           warp   28.08   28.08   28.08
+    ------------------------------- ----------- ------- ------- -------
+
+  Note: The shown averages are calculated as the arithmetic mean of the metric values after the evaluation of the    
+  metrics for each individual kernel launch.                                                                         
+  If aggregating across varying launch configurations (like shared memory, cache config settings), the arithmetic    
+  mean can be misleading and looking at the individual results is recommended instead.                               
+  This output mode is backwards compatible to the per-kernel summary output of nvprof                                
+
 
 ================================================================
->>> profile: 512x512.pgm | block 16
+>>> profile: 512x512.pgm | block 16 (ncu)
 ================================================================
-======== Warning: Skipping profiling on device 0 since profiling is not supported on devices with compute capability 7.5 and higher.
-                  Use NVIDIA Nsight Compute for GPU profiling and NVIDIA Nsight Systems for GPU tracing and CPU sampling.
-                  Refer https://developer.nvidia.com/tools-overview for more details.
-
-==5031== NVPROF is profiling process 5031, command: ./image_processing_cuda ../../images/512x512.pgm 16
+==PROF== Connected to process 6967 (/content/parallel-programming-project/cuda/image_processing/image_processing_cuda)
+==PROF== Profiling "gaussian_blur_shared" - 0: 0%....50%....100% - 9 passes
+==PROF== Profiling "gaussian_blur_shared" - 1: 0%....50%....100% - 9 passes
+==PROF== Profiling "sobel_shared" - 2: 0%....50%....100% - 9 passes
 === Gaussian Blur | Block: 16 ===
 Image size:  512x512
-Time:        0.0001 seconds
-Energy:      0.0018 Joules
-GFLOPS:      208.2359
-GFLOPS/W:    7.3426
+Time:        1.6274 seconds
+Energy:      48.1136 Joules
+GFLOPS:      0.0081
+GFLOPS/W:    0.0003
 
 === Sobel Edge Detection | Block: 16 ===
 Image size:  512x512
-Time:        0.0001 seconds
-Energy:      0.0015 Joules
-GFLOPS:      176.5940
-GFLOPS/W:    6.2269
+Time:        1.6287 seconds
+Energy:      47.4283 Joules
+GFLOPS:      0.0058
+GFLOPS/W:    0.0002
 
-==5031== Profiling application: ./image_processing_cuda ../../images/512x512.pgm 16
-==5031== Profiling result:
-No events/metrics were profiled.
+==PROF== Disconnected from process 6967
+[6967] image_processing_cuda@127.0.0.1
+  void gaussian_blur_shared<16>(const float *, float *, int, int) (32, 32, 1)x(16, 16, 1), Device 0, CC 7.5, Invocations 2
+    Section: GPU Speed Of Light Throughput
+    ----------------------- ----------- --------- --------- ---------
+    Metric Name             Metric Unit   Minimum   Maximum   Average
+    ----------------------- ----------- --------- --------- ---------
+    DRAM Frequency                  Ghz      4.94      4.96      4.95
+    SM Frequency                    Mhz    584.42    584.66    584.54
+    Elapsed Cycles                cycle 29,367.00 29,585.00 29,476.00
+    Memory Throughput                 %     43.76     44.18     43.97
+    DRAM Throughput                   %     12.90     12.97     12.94
+    Duration                         us     50.24     50.59     50.42
+    L1/TEX Cache Throughput           %     84.12     84.97     84.54
+    L2 Cache Throughput               %      8.10      8.17      8.13
+    SM Active Cycles              cycle 27,270.03 27,281.12 27,275.58
+    Compute (SM) Throughput           %     43.76     44.18     43.97
+    ----------------------- ----------- --------- --------- ---------
+
+    Section: GPU and Memory Workload Distribution
+    -------------------------- ----------- ------------ ------------ ------------
+    Metric Name                Metric Unit      Minimum      Maximum      Average
+    -------------------------- ----------- ------------ ------------ ------------
+    Average DRAM Active Cycles       cycle    32,233.00    32,307.00    32,270.00
+    Total DRAM Elapsed Cycles        cycle 1,992,704.00 1,998,848.00 1,995,776.00
+    Average L1 Active Cycles         cycle    27,270.03    27,281.12    27,275.58
+    Total L1 Elapsed Cycles          cycle 1,158,912.00 1,170,072.00 1,164,492.00
+    Average L2 Active Cycles         cycle    27,820.88    28,562.28    28,191.58
+    Total L2 Elapsed Cycles          cycle 1,373,024.00 1,383,200.00 1,378,112.00
+    Average SM Active Cycles         cycle    27,270.03    27,281.12    27,275.58
+    Total SM Elapsed Cycles          cycle 1,158,912.00 1,170,072.00 1,164,492.00
+    Average SMSP Active Cycles       cycle    27,097.36    27,103.27    27,100.32
+    Total SMSP Elapsed Cycles        cycle 4,635,648.00 4,680,288.00 4,657,968.00
+    -------------------------- ----------- ------------ ------------ ------------
+
+    Section: Launch Statistics
+    -------------------------------- --------------- ---------- ---------- ----------
+    Metric Name                          Metric Unit    Minimum    Maximum    Average
+    -------------------------------- --------------- ---------- ---------- ----------
+    Block Size                                           256.00     256.00     256.00
+    Grid Size                                          1,024.00   1,024.00   1,024.00
+    Registers Per Thread             register/thread      26.00      26.00      26.00
+    Shared Memory Configuration Size           Kbyte      32.77      32.77      32.77
+    Driver Shared Memory Per Block        byte/block       0.00       0.00       0.00
+    Dynamic Shared Memory Per Block       byte/block       0.00       0.00       0.00
+    Static Shared Memory Per Block       Kbyte/block       1.60       1.60       1.60
+    # SMs                                         SM      40.00      40.00      40.00
+    Stack Size                                         1,024.00   1,024.00   1,024.00
+    Threads                                   thread 262,144.00 262,144.00 262,144.00
+    # TPCs                                                20.00      20.00      20.00
+    Uses Green Context                                     0.00       0.00       0.00
+    Waves Per SM                                           6.40       6.40       6.40
+    -------------------------------- --------------- ---------- ---------- ----------
+
+    Section: Occupancy
+    ------------------------------- ----------- ------- ------- -------
+    Metric Name                     Metric Unit Minimum Maximum Average
+    ------------------------------- ----------- ------- ------- -------
+    Block Limit SM                        block   16.00   16.00   16.00
+    Block Limit Registers                 block    8.00    8.00    8.00
+    Block Limit Shared Mem                block   18.00   18.00   18.00
+    Block Limit Warps                     block    4.00    4.00    4.00
+    Theoretical Active Warps per SM        warp   32.00   32.00   32.00
+    Theoretical Occupancy                     %  100.00  100.00  100.00
+    Achieved Occupancy                        %   91.76   92.03   91.90
+    Achieved Active Warps Per SM           warp   29.36   29.45   29.41
+    ------------------------------- ----------- ------- ------- -------
+
+  void sobel_shared<16>(const float *, float *, int, int) (32, 32, 1)x(16, 16, 1), Device 0, CC 7.5, Invocations 1
+    Section: GPU Speed Of Light Throughput
+    ----------------------- ----------- --------- --------- ---------
+    Metric Name             Metric Unit   Minimum   Maximum   Average
+    ----------------------- ----------- --------- --------- ---------
+    DRAM Frequency                  Ghz      4.86      4.86      4.86
+    SM Frequency                    Mhz    583.74    583.74    583.74
+    Elapsed Cycles                cycle 16,556.00 16,556.00 16,556.00
+    Memory Throughput                 %     35.04     35.04     35.04
+    DRAM Throughput                   %     21.88     21.88     21.88
+    Duration                         us     28.35     28.35     28.35
+    L1/TEX Cache Throughput           %     64.12     64.12     64.12
+    L2 Cache Throughput               %     13.43     13.43     13.43
+    SM Active Cycles              cycle 14,594.88 14,594.88 14,594.88
+    Compute (SM) Throughput           %     35.04     35.04     35.04
+    ----------------------- ----------- --------- --------- ---------
+
+    Section: GPU and Memory Workload Distribution
+    -------------------------- ----------- ------------ ------------ ------------
+    Metric Name                Metric Unit      Minimum      Maximum      Average
+    -------------------------- ----------- ------------ ------------ ------------
+    Average DRAM Active Cycles       cycle    30,132.50    30,132.50    30,132.50
+    Total DRAM Elapsed Cycles        cycle 1,101,824.00 1,101,824.00 1,101,824.00
+    Average L1 Active Cycles         cycle    14,594.88    14,594.88    14,594.88
+    Total L1 Elapsed Cycles          cycle   642,872.00   642,872.00   642,872.00
+    Average L2 Active Cycles         cycle    16,674.44    16,674.44    16,674.44
+    Total L2 Elapsed Cycles          cycle   774,144.00   774,144.00   774,144.00
+    Average SM Active Cycles         cycle    14,594.88    14,594.88    14,594.88
+    Total SM Elapsed Cycles          cycle   642,872.00   642,872.00   642,872.00
+    Average SMSP Active Cycles       cycle    14,382.96    14,382.96    14,382.96
+    Total SMSP Elapsed Cycles        cycle 2,571,488.00 2,571,488.00 2,571,488.00
+    -------------------------- ----------- ------------ ------------ ------------
+
+    Section: Launch Statistics
+    -------------------------------- --------------- ---------- ---------- ----------
+    Metric Name                          Metric Unit    Minimum    Maximum    Average
+    -------------------------------- --------------- ---------- ---------- ----------
+    Block Size                                           256.00     256.00     256.00
+    Grid Size                                          1,024.00   1,024.00   1,024.00
+    Registers Per Thread             register/thread      26.00      26.00      26.00
+    Shared Memory Configuration Size           Kbyte      32.77      32.77      32.77
+    Driver Shared Memory Per Block        byte/block       0.00       0.00       0.00
+    Dynamic Shared Memory Per Block       byte/block       0.00       0.00       0.00
+    Static Shared Memory Per Block       Kbyte/block       1.30       1.30       1.30
+    # SMs                                         SM      40.00      40.00      40.00
+    Stack Size                                         1,024.00   1,024.00   1,024.00
+    Threads                                   thread 262,144.00 262,144.00 262,144.00
+    # TPCs                                                20.00      20.00      20.00
+    Uses Green Context                                     0.00       0.00       0.00
+    Waves Per SM                                           6.40       6.40       6.40
+    -------------------------------- --------------- ---------- ---------- ----------
+
+    Section: Occupancy
+    ------------------------------- ----------- ------- ------- -------
+    Metric Name                     Metric Unit Minimum Maximum Average
+    ------------------------------- ----------- ------- ------- -------
+    Block Limit SM                        block   16.00   16.00   16.00
+    Block Limit Registers                 block    8.00    8.00    8.00
+    Block Limit Shared Mem                block   21.00   21.00   21.00
+    Block Limit Warps                     block    4.00    4.00    4.00
+    Theoretical Active Warps per SM        warp   32.00   32.00   32.00
+    Theoretical Occupancy                     %  100.00  100.00  100.00
+    Achieved Occupancy                        %   88.18   88.18   88.18
+    Achieved Active Warps Per SM           warp   28.22   28.22   28.22
+    ------------------------------- ----------- ------- ------- -------
+
+  Note: The shown averages are calculated as the arithmetic mean of the metric values after the evaluation of the    
+  metrics for each individual kernel launch.                                                                         
+  If aggregating across varying launch configurations (like shared memory, cache config settings), the arithmetic    
+  mean can be misleading and looking at the individual results is recommended instead.                               
+  This output mode is backwards compatible to the per-kernel summary output of nvprof                                
+
 
 ================================================================
->>> profile: 512x512.pgm | block 32
+>>> profile: 512x512.pgm | block 32 (ncu)
 ================================================================
-======== Warning: Skipping profiling on device 0 since profiling is not supported on devices with compute capability 7.5 and higher.
-                  Use NVIDIA Nsight Compute for GPU profiling and NVIDIA Nsight Systems for GPU tracing and CPU sampling.
-                  Refer https://developer.nvidia.com/tools-overview for more details.
-
-==5058== NVPROF is profiling process 5058, command: ./image_processing_cuda ../../images/512x512.pgm 32
+==PROF== Connected to process 7064 (/content/parallel-programming-project/cuda/image_processing/image_processing_cuda)
+==PROF== Profiling "gaussian_blur_shared" - 0: 0%....50%....100% - 9 passes
+==PROF== Profiling "gaussian_blur_shared" - 1: 0%....50%....100% - 9 passes
+==PROF== Profiling "sobel_shared" - 2: 0%....50%....100% - 9 passes
 === Gaussian Blur | Block: 32 ===
 Image size:  512x512
-Time:        0.0001 seconds
-Energy:      0.0016 Joules
-GFLOPS:      229.2110
-GFLOPS/W:    8.0822
+Time:        1.6505 seconds
+Energy:      48.0629 Joules
+GFLOPS:      0.0079
+GFLOPS/W:    0.0003
 
 === Sobel Edge Detection | Block: 32 ===
 Image size:  512x512
-Time:        0.0001 seconds
-Energy:      0.0015 Joules
-GFLOPS:      176.2773
-GFLOPS/W:    6.2157
+Time:        1.6595 seconds
+Energy:      48.2323 Joules
+GFLOPS:      0.0057
+GFLOPS/W:    0.0002
 
-==5058== Profiling application: ./image_processing_cuda ../../images/512x512.pgm 32
-==5058== Profiling result:
-No events/metrics were profiled.
+==PROF== Disconnected from process 7064
+[7064] image_processing_cuda@127.0.0.1
+  void gaussian_blur_shared<32>(const float *, float *, int, int) (16, 16, 1)x(32, 32, 1), Device 0, CC 7.5, Invocations 2
+    Section: GPU Speed Of Light Throughput
+    ----------------------- ----------- --------- --------- ---------
+    Metric Name             Metric Unit   Minimum   Maximum   Average
+    ----------------------- ----------- --------- --------- ---------
+    DRAM Frequency                  Ghz      4.82      4.88      4.85
+    SM Frequency                    Mhz    584.29    584.54    584.41
+    Elapsed Cycles                cycle 25,957.00 26,157.00 26,057.00
+    Memory Throughput                 %     49.29     49.37     49.33
+    DRAM Throughput                   %     11.95     12.00     11.97
+    Duration                         us     44.42     44.74     44.58
+    L1/TEX Cache Throughput           %     58.59     58.66     58.63
+    L2 Cache Throughput               %      7.30      7.35      7.32
+    SM Active Cycles              cycle 21,339.17 21,365.80 21,352.49
+    Compute (SM) Throughput           %     49.29     49.37     49.33
+    ----------------------- ----------- --------- --------- ---------
+
+    Section: GPU and Memory Workload Distribution
+    -------------------------- ----------- ------------ ------------ ------------
+    Metric Name                Metric Unit      Minimum      Maximum      Average
+    -------------------------- ----------- ------------ ------------ ------------
+    Average DRAM Active Cycles       cycle    25,871.00    25,884.00    25,877.50
+    Total DRAM Elapsed Cycles        cycle 1,725,440.00 1,732,608.00 1,729,024.00
+    Average L1 Active Cycles         cycle    21,339.17    21,365.80    21,352.49
+    Total L1 Elapsed Cycles          cycle 1,014,328.00 1,015,944.00 1,015,136.00
+    Average L2 Active Cycles         cycle    13,139.94    13,236.34    13,188.14
+    Total L2 Elapsed Cycles          cycle 1,213,504.00 1,222,784.00 1,218,144.00
+    Average SM Active Cycles         cycle    21,339.17    21,365.80    21,352.49
+    Total SM Elapsed Cycles          cycle 1,014,328.00 1,015,944.00 1,015,136.00
+    Average SMSP Active Cycles       cycle    21,143.39    21,204.90    21,174.15
+    Total SMSP Elapsed Cycles        cycle 4,057,312.00 4,063,776.00 4,060,544.00
+    -------------------------- ----------- ------------ ------------ ------------
+
+    Section: Launch Statistics
+    -------------------------------- --------------- ---------- ---------- ----------
+    Metric Name                          Metric Unit    Minimum    Maximum    Average
+    -------------------------------- --------------- ---------- ---------- ----------
+    Block Size                                         1,024.00   1,024.00   1,024.00
+    Grid Size                                            256.00     256.00     256.00
+    Registers Per Thread             register/thread      26.00      26.00      26.00
+    Shared Memory Configuration Size           Kbyte      32.77      32.77      32.77
+    Driver Shared Memory Per Block        byte/block       0.00       0.00       0.00
+    Dynamic Shared Memory Per Block       byte/block       0.00       0.00       0.00
+    Static Shared Memory Per Block       Kbyte/block       5.18       5.18       5.18
+    # SMs                                         SM      40.00      40.00      40.00
+    Stack Size                                         1,024.00   1,024.00   1,024.00
+    Threads                                   thread 262,144.00 262,144.00 262,144.00
+    # TPCs                                                20.00      20.00      20.00
+    Uses Green Context                                     0.00       0.00       0.00
+    Waves Per SM                                           6.40       6.40       6.40
+    -------------------------------- --------------- ---------- ---------- ----------
+
+    Section: Occupancy
+    ------------------------------- ----------- ------- ------- -------
+    Metric Name                     Metric Unit Minimum Maximum Average
+    ------------------------------- ----------- ------- ------- -------
+    Block Limit SM                        block   16.00   16.00   16.00
+    Block Limit Registers                 block    2.00    2.00    2.00
+    Block Limit Shared Mem                block    6.00    6.00    6.00
+    Block Limit Warps                     block    1.00    1.00    1.00
+    Theoretical Active Warps per SM        warp   32.00   32.00   32.00
+    Theoretical Occupancy                     %  100.00  100.00  100.00
+    Achieved Occupancy                        %   98.97   99.64   99.30
+    Achieved Active Warps Per SM           warp   31.67   31.88   31.78
+    ------------------------------- ----------- ------- ------- -------
+
+  void sobel_shared<32>(const float *, float *, int, int) (16, 16, 1)x(32, 32, 1), Device 0, CC 7.5, Invocations 1
+    Section: GPU Speed Of Light Throughput
+    ----------------------- ----------- --------- --------- ---------
+    Metric Name             Metric Unit   Minimum   Maximum   Average
+    ----------------------- ----------- --------- --------- ---------
+    DRAM Frequency                  Ghz      4.80      4.80      4.80
+    SM Frequency                    Mhz    584.19    584.19    584.19
+    Elapsed Cycles                cycle 18,268.00 18,268.00 18,268.00
+    Memory Throughput                 %     30.72     30.72     30.72
+    DRAM Throughput                   %     17.33     17.33     17.33
+    Duration                         us     31.26     31.26     31.26
+    L1/TEX Cache Throughput           %     38.13     38.13     38.13
+    L2 Cache Throughput               %     10.07     10.07     10.07
+    SM Active Cycles              cycle 14,298.80 14,298.80 14,298.80
+    Compute (SM) Throughput           %     30.72     30.72     30.72
+    ----------------------- ----------- --------- --------- ---------
+
+    Section: GPU and Memory Workload Distribution
+    -------------------------- ----------- ------------ ------------ ------------
+    Metric Name                Metric Unit      Minimum      Maximum      Average
+    -------------------------- ----------- ------------ ------------ ------------
+    Average DRAM Active Cycles       cycle    26,002.50    26,002.50    26,002.50
+    Total DRAM Elapsed Cycles        cycle 1,200,128.00 1,200,128.00 1,200,128.00
+    Average L1 Active Cycles         cycle    14,298.80    14,298.80    14,298.80
+    Total L1 Elapsed Cycles          cycle   710,064.00   710,064.00   710,064.00
+    Average L2 Active Cycles         cycle    13,004.00    13,004.00    13,004.00
+    Total L2 Elapsed Cycles          cycle   854,016.00   854,016.00   854,016.00
+    Average SM Active Cycles         cycle    14,298.80    14,298.80    14,298.80
+    Total SM Elapsed Cycles          cycle   710,064.00   710,064.00   710,064.00
+    Average SMSP Active Cycles       cycle    14,071.62    14,071.62    14,071.62
+    Total SMSP Elapsed Cycles        cycle 2,840,256.00 2,840,256.00 2,840,256.00
+    -------------------------- ----------- ------------ ------------ ------------
+
+    Section: Launch Statistics
+    -------------------------------- --------------- ---------- ---------- ----------
+    Metric Name                          Metric Unit    Minimum    Maximum    Average
+    -------------------------------- --------------- ---------- ---------- ----------
+    Block Size                                         1,024.00   1,024.00   1,024.00
+    Grid Size                                            256.00     256.00     256.00
+    Registers Per Thread             register/thread      26.00      26.00      26.00
+    Shared Memory Configuration Size           Kbyte      32.77      32.77      32.77
+    Driver Shared Memory Per Block        byte/block       0.00       0.00       0.00
+    Dynamic Shared Memory Per Block       byte/block       0.00       0.00       0.00
+    Static Shared Memory Per Block       Kbyte/block       4.62       4.62       4.62
+    # SMs                                         SM      40.00      40.00      40.00
+    Stack Size                                         1,024.00   1,024.00   1,024.00
+    Threads                                   thread 262,144.00 262,144.00 262,144.00
+    # TPCs                                                20.00      20.00      20.00
+    Uses Green Context                                     0.00       0.00       0.00
+    Waves Per SM                                           6.40       6.40       6.40
+    -------------------------------- --------------- ---------- ---------- ----------
+
+    Section: Occupancy
+    ------------------------------- ----------- ------- ------- -------
+    Metric Name                     Metric Unit Minimum Maximum Average
+    ------------------------------- ----------- ------- ------- -------
+    Block Limit SM                        block   16.00   16.00   16.00
+    Block Limit Registers                 block    2.00    2.00    2.00
+    Block Limit Shared Mem                block    6.00    6.00    6.00
+    Block Limit Warps                     block    1.00    1.00    1.00
+    Theoretical Active Warps per SM        warp   32.00   32.00   32.00
+    Theoretical Occupancy                     %  100.00  100.00  100.00
+    Achieved Occupancy                        %   98.77   98.77   98.77
+    Achieved Active Warps Per SM           warp   31.61   31.61   31.61
+    ------------------------------- ----------- ------- ------- -------
+
+  Note: The shown averages are calculated as the arithmetic mean of the metric values after the evaluation of the    
+  metrics for each individual kernel launch.                                                                         
+  If aggregating across varying launch configurations (like shared memory, cache config settings), the arithmetic    
+  mean can be misleading and looking at the individual results is recommended instead.                               
+  This output mode is backwards compatible to the per-kernel summary output of nvprof                                
+
 
 ================================================================
->>> profile: 1024x1024.pgm | block 8
+>>> profile: 1024x1024.pgm | block 8 (ncu)
 ================================================================
-======== Warning: Skipping profiling on device 0 since profiling is not supported on devices with compute capability 7.5 and higher.
-                  Use NVIDIA Nsight Compute for GPU profiling and NVIDIA Nsight Systems for GPU tracing and CPU sampling.
-                  Refer https://developer.nvidia.com/tools-overview for more details.
-
-==5085== NVPROF is profiling process 5085, command: ./image_processing_cuda ../../images/1024x1024.pgm 8
+==PROF== Connected to process 7164 (/content/parallel-programming-project/cuda/image_processing/image_processing_cuda)
+==PROF== Profiling "gaussian_blur_shared" - 0: 0%....50%....100% - 9 passes
+==PROF== Profiling "gaussian_blur_shared" - 1: 0%....50%....100% - 9 passes
+==PROF== Profiling "sobel_shared" - 2: 0%....50%....100% - 9 passes
 === Gaussian Blur | Block: 8 ===
 Image size:  1080x1080
-Time:        0.0002 seconds
-Energy:      0.0050 Joules
-GFLOPS:      332.8159
-GFLOPS/W:    11.6166
+Time:        1.6600 seconds
+Energy:      48.9210 Joules
+GFLOPS:      0.0351
+GFLOPS/W:    0.0012
 
 === Sobel Edge Detection | Block: 8 ===
 Image size:  1080x1080
-Time:        0.0001 seconds
-Energy:      0.0038 Joules
-GFLOPS:      316.8800
-GFLOPS/W:    11.0604
+Time:        1.6556 seconds
+Energy:      48.2930 Joules
+GFLOPS:      0.0254
+GFLOPS/W:    0.0009
 
-==5085== Profiling application: ./image_processing_cuda ../../images/1024x1024.pgm 8
-==5085== Profiling result:
-No events/metrics were profiled.
+==PROF== Disconnected from process 7164
+[7164] image_processing_cuda@127.0.0.1
+  void gaussian_blur_shared<8>(const float *, float *, int, int) (135, 135, 1)x(8, 8, 1), Device 0, CC 7.5, Invocations 2
+    Section: GPU Speed Of Light Throughput
+    ----------------------- ----------- ---------- ---------- ----------
+    Metric Name             Metric Unit    Minimum    Maximum    Average
+    ----------------------- ----------- ---------- ---------- ----------
+    DRAM Frequency                  Ghz       4.98       4.99       4.98
+    SM Frequency                    Mhz     584.86     584.92     584.89
+    Elapsed Cycles                cycle 124,444.00 124,756.00 124,600.00
+    Memory Throughput                 %      48.36      48.40      48.38
+    DRAM Throughput                   %      18.44      18.46      18.45
+    Duration                         us     212.77     213.28     213.02
+    L1/TEX Cache Throughput           %      96.71      96.74      96.73
+    L2 Cache Throughput               %      11.68      11.77      11.73
+    SM Active Cycles              cycle 122,728.85 122,788.02 122,758.44
+    Compute (SM) Throughput           %      48.36      48.37      48.36
+    ----------------------- ----------- ---------- ---------- ----------
+
+    Section: GPU and Memory Workload Distribution
+    -------------------------- ----------- ------------- ------------- -------------
+    Metric Name                Metric Unit       Minimum       Maximum       Average
+    -------------------------- ----------- ------------- ------------- -------------
+    Average DRAM Active Cycles       cycle    195,885.00    195,929.50    195,907.25
+    Total DRAM Elapsed Cycles        cycle  8,491,008.00  8,499,200.00  8,495,104.00
+    Average L1 Active Cycles         cycle    122,728.85    122,788.02    122,758.44
+    Total L1 Elapsed Cycles          cycle  4,974,048.00  4,975,056.00  4,974,552.00
+    Average L2 Active Cycles         cycle    170,046.19    170,253.53    170,149.86
+    Total L2 Elapsed Cycles          cycle  5,818,560.00  5,833,184.00  5,825,872.00
+    Average SM Active Cycles         cycle    122,728.85    122,788.02    122,758.44
+    Total SM Elapsed Cycles          cycle  4,974,048.00  4,975,056.00  4,974,552.00
+    Average SMSP Active Cycles       cycle    122,566.51    122,600.45    122,583.48
+    Total SMSP Elapsed Cycles        cycle 19,896,192.00 19,900,224.00 19,898,208.00
+    -------------------------- ----------- ------------- ------------- -------------
+
+    Section: Launch Statistics
+    -------------------------------- --------------- ------------ ------------ ------------
+    Metric Name                          Metric Unit      Minimum      Maximum      Average
+    -------------------------------- --------------- ------------ ------------ ------------
+    Block Size                                              64.00        64.00        64.00
+    Grid Size                                           18,225.00    18,225.00    18,225.00
+    Registers Per Thread             register/thread        26.00        26.00        26.00
+    Shared Memory Configuration Size           Kbyte        32.77        32.77        32.77
+    Driver Shared Memory Per Block        byte/block         0.00         0.00         0.00
+    Dynamic Shared Memory Per Block       byte/block         0.00         0.00         0.00
+    Static Shared Memory Per Block        byte/block       576.00       576.00       576.00
+    # SMs                                         SM        40.00        40.00        40.00
+    Stack Size                                           1,024.00     1,024.00     1,024.00
+    Threads                                   thread 1,166,400.00 1,166,400.00 1,166,400.00
+    # TPCs                                                  20.00        20.00        20.00
+    Uses Green Context                                       0.00         0.00         0.00
+    Waves Per SM                                            28.48        28.48        28.48
+    -------------------------------- --------------- ------------ ------------ ------------
+
+    Section: Occupancy
+    ------------------------------- ----------- ------- ------- -------
+    Metric Name                     Metric Unit Minimum Maximum Average
+    ------------------------------- ----------- ------- ------- -------
+    Block Limit SM                        block   16.00   16.00   16.00
+    Block Limit Registers                 block   32.00   32.00   32.00
+    Block Limit Shared Mem                block   42.00   42.00   42.00
+    Block Limit Warps                     block   16.00   16.00   16.00
+    Theoretical Active Warps per SM        warp   32.00   32.00   32.00
+    Theoretical Occupancy                     %  100.00  100.00  100.00
+    Achieved Occupancy                        %   92.23   92.42   92.32
+    Achieved Active Warps Per SM           warp   29.51   29.57   29.54
+    ------------------------------- ----------- ------- ------- -------
+
+  void sobel_shared<8>(const float *, float *, int, int) (135, 135, 1)x(8, 8, 1), Device 0, CC 7.5, Invocations 1
+    Section: GPU Speed Of Light Throughput
+    ----------------------- ----------- --------- --------- ---------
+    Metric Name             Metric Unit   Minimum   Maximum   Average
+    ----------------------- ----------- --------- --------- ---------
+    DRAM Frequency                  Ghz      4.76      4.76      4.76
+    SM Frequency                    Mhz    584.87    584.87    584.87
+    Elapsed Cycles                cycle 66,839.00 66,839.00 66,839.00
+    Memory Throughput                 %     43.27     43.27     43.27
+    DRAM Throughput                   %     32.33     32.33     32.33
+    Duration                         us    114.27    114.27    114.27
+    L1/TEX Cache Throughput           %     86.53     86.53     86.53
+    L2 Cache Throughput               %     19.33     19.33     19.33
+    SM Active Cycles              cycle 60,688.35 60,688.35 60,688.35
+    Compute (SM) Throughput           %     44.31     44.31     44.31
+    ----------------------- ----------- --------- --------- ---------
+
+    Section: GPU and Memory Workload Distribution
+    -------------------------- ----------- ------------- ------------- -------------
+    Metric Name                Metric Unit       Minimum       Maximum       Average
+    -------------------------- ----------- ------------- ------------- -------------
+    Average DRAM Active Cycles       cycle    175,779.50    175,779.50    175,779.50
+    Total DRAM Elapsed Cycles        cycle  4,349,952.00  4,349,952.00  4,349,952.00
+    Average L1 Active Cycles         cycle     60,688.35     60,688.35     60,688.35
+    Total L1 Elapsed Cycles          cycle  2,531,944.00  2,531,944.00  2,531,944.00
+    Average L2 Active Cycles         cycle     87,444.59     87,444.59     87,444.59
+    Total L2 Elapsed Cycles          cycle  3,124,352.00  3,124,352.00  3,124,352.00
+    Average SM Active Cycles         cycle     60,688.35     60,688.35     60,688.35
+    Total SM Elapsed Cycles          cycle  2,531,944.00  2,531,944.00  2,531,944.00
+    Average SMSP Active Cycles       cycle     61,927.96     61,927.96     61,927.96
+    Total SMSP Elapsed Cycles        cycle 10,127,776.00 10,127,776.00 10,127,776.00
+    -------------------------- ----------- ------------- ------------- -------------
+
+    Section: Launch Statistics
+    -------------------------------- --------------- ------------ ------------ ------------
+    Metric Name                          Metric Unit      Minimum      Maximum      Average
+    -------------------------------- --------------- ------------ ------------ ------------
+    Block Size                                              64.00        64.00        64.00
+    Grid Size                                           18,225.00    18,225.00    18,225.00
+    Registers Per Thread             register/thread        26.00        26.00        26.00
+    Shared Memory Configuration Size           Kbyte        32.77        32.77        32.77
+    Driver Shared Memory Per Block        byte/block         0.00         0.00         0.00
+    Dynamic Shared Memory Per Block       byte/block         0.00         0.00         0.00
+    Static Shared Memory Per Block        byte/block       400.00       400.00       400.00
+    # SMs                                         SM        40.00        40.00        40.00
+    Stack Size                                           1,024.00     1,024.00     1,024.00
+    Threads                                   thread 1,166,400.00 1,166,400.00 1,166,400.00
+    # TPCs                                                  20.00        20.00        20.00
+    Uses Green Context                                       0.00         0.00         0.00
+    Waves Per SM                                            28.48        28.48        28.48
+    -------------------------------- --------------- ------------ ------------ ------------
+
+    Section: Occupancy
+    ------------------------------- ----------- ------- ------- -------
+    Metric Name                     Metric Unit Minimum Maximum Average
+    ------------------------------- ----------- ------- ------- -------
+    Block Limit SM                        block   16.00   16.00   16.00
+    Block Limit Registers                 block   32.00   32.00   32.00
+    Block Limit Shared Mem                block   64.00   64.00   64.00
+    Block Limit Warps                     block   16.00   16.00   16.00
+    Theoretical Active Warps per SM        warp   32.00   32.00   32.00
+    Theoretical Occupancy                     %  100.00  100.00  100.00
+    Achieved Occupancy                        %   95.98   95.98   95.98
+    Achieved Active Warps Per SM           warp   30.71   30.71   30.71
+    ------------------------------- ----------- ------- ------- -------
+
+  Note: The shown averages are calculated as the arithmetic mean of the metric values after the evaluation of the    
+  metrics for each individual kernel launch.                                                                         
+  If aggregating across varying launch configurations (like shared memory, cache config settings), the arithmetic    
+  mean can be misleading and looking at the individual results is recommended instead.                               
+  This output mode is backwards compatible to the per-kernel summary output of nvprof                                
+
 
 ================================================================
->>> profile: 1024x1024.pgm | block 16
+>>> profile: 1024x1024.pgm | block 16 (ncu)
 ================================================================
-======== Warning: Skipping profiling on device 0 since profiling is not supported on devices with compute capability 7.5 and higher.
-                  Use NVIDIA Nsight Compute for GPU profiling and NVIDIA Nsight Systems for GPU tracing and CPU sampling.
-                  Refer https://developer.nvidia.com/tools-overview for more details.
-
-==5108== NVPROF is profiling process 5108, command: ./image_processing_cuda ../../images/1024x1024.pgm 16
+==PROF== Connected to process 7264 (/content/parallel-programming-project/cuda/image_processing/image_processing_cuda)
+==PROF== Profiling "gaussian_blur_shared" - 0: 0%....50%....100% - 9 passes
+==PROF== Profiling "gaussian_blur_shared" - 1: 0%....50%....100% - 9 passes
+==PROF== Profiling "sobel_shared" - 2: 0%....50%....100% - 9 passes
 === Gaussian Blur | Block: 16 ===
 Image size:  1080x1080
-Time:        0.0002 seconds
-Energy:      0.0052 Joules
-GFLOPS:      316.4062
-GFLOPS/W:    11.1215
+Time:        1.7123 seconds
+Energy:      50.2036 Joules
+GFLOPS:      0.0341
+GFLOPS/W:    0.0012
 
 === Sobel Edge Detection | Block: 16 ===
 Image size:  1080x1080
-Time:        0.0001 seconds
-Energy:      0.0039 Joules
-GFLOPS:      303.8907
-GFLOPS/W:    10.6816
+Time:        1.6585 seconds
+Energy:      48.6273 Joules
+GFLOPS:      0.0253
+GFLOPS/W:    0.0009
 
-==5108== Profiling application: ./image_processing_cuda ../../images/1024x1024.pgm 16
-==5108== Profiling result:
-No events/metrics were profiled.
+==PROF== Disconnected from process 7264
+[7264] image_processing_cuda@127.0.0.1
+  void gaussian_blur_shared<16>(const float *, float *, int, int) (68, 68, 1)x(16, 16, 1), Device 0, CC 7.5, Invocations 2
+    Section: GPU Speed Of Light Throughput
+    ----------------------- ----------- ---------- ---------- ----------
+    Metric Name             Metric Unit    Minimum    Maximum    Average
+    ----------------------- ----------- ---------- ---------- ----------
+    DRAM Frequency                  Ghz       4.96       4.98       4.97
+    SM Frequency                    Mhz     584.86     584.87     584.86
+    Elapsed Cycles                cycle 118,176.00 118,436.00 118,306.00
+    Memory Throughput                 %      48.74      48.90      48.82
+    DRAM Throughput                   %      19.17      19.22      19.19
+    Duration                         us     202.05     202.50     202.27
+    L1/TEX Cache Throughput           %      92.80      93.12      92.96
+    L2 Cache Throughput               %       9.17       9.19       9.18
+    SM Active Cycles              cycle 115,697.85 115,741.52 115,719.69
+    Compute (SM) Throughput           %      48.74      48.90      48.82
+    ----------------------- ----------- ---------- ---------- ----------
+
+    Section: GPU and Memory Workload Distribution
+    -------------------------- ----------- ------------- ------------- -------------
+    Metric Name                Metric Unit       Minimum       Maximum       Average
+    -------------------------- ----------- ------------- ------------- -------------
+    Average DRAM Active Cycles       cycle    192,760.00    193,150.50    192,955.25
+    Total DRAM Elapsed Cycles        cycle  8,039,424.00  8,044,544.00  8,041,984.00
+    Average L1 Active Cycles         cycle    115,697.85    115,741.52    115,719.69
+    Total L1 Elapsed Cycles          cycle  4,698,856.00  4,714,896.00  4,706,876.00
+    Average L2 Active Cycles         cycle    147,835.91    149,030.50    148,433.20
+    Total L2 Elapsed Cycles          cycle  5,526,496.00  5,538,688.00  5,532,592.00
+    Average SM Active Cycles         cycle    115,697.85    115,741.52    115,719.69
+    Total SM Elapsed Cycles          cycle  4,698,856.00  4,714,896.00  4,706,876.00
+    Average SMSP Active Cycles       cycle    115,824.14    116,364.46    116,094.30
+    Total SMSP Elapsed Cycles        cycle 18,795,424.00 18,859,584.00 18,827,504.00
+    -------------------------- ----------- ------------- ------------- -------------
+
+    Section: Launch Statistics
+    -------------------------------- --------------- ------------ ------------ ------------
+    Metric Name                          Metric Unit      Minimum      Maximum      Average
+    -------------------------------- --------------- ------------ ------------ ------------
+    Block Size                                             256.00       256.00       256.00
+    Grid Size                                            4,624.00     4,624.00     4,624.00
+    Registers Per Thread             register/thread        26.00        26.00        26.00
+    Shared Memory Configuration Size           Kbyte        32.77        32.77        32.77
+    Driver Shared Memory Per Block        byte/block         0.00         0.00         0.00
+    Dynamic Shared Memory Per Block       byte/block         0.00         0.00         0.00
+    Static Shared Memory Per Block       Kbyte/block         1.60         1.60         1.60
+    # SMs                                         SM        40.00        40.00        40.00
+    Stack Size                                           1,024.00     1,024.00     1,024.00
+    Threads                                   thread 1,183,744.00 1,183,744.00 1,183,744.00
+    # TPCs                                                  20.00        20.00        20.00
+    Uses Green Context                                       0.00         0.00         0.00
+    Waves Per SM                                            28.90        28.90        28.90
+    -------------------------------- --------------- ------------ ------------ ------------
+
+    Section: Occupancy
+    ------------------------------- ----------- ------- ------- -------
+    Metric Name                     Metric Unit Minimum Maximum Average
+    ------------------------------- ----------- ------- ------- -------
+    Block Limit SM                        block   16.00   16.00   16.00
+    Block Limit Registers                 block    8.00    8.00    8.00
+    Block Limit Shared Mem                block   18.00   18.00   18.00
+    Block Limit Warps                     block    4.00    4.00    4.00
+    Theoretical Active Warps per SM        warp   32.00   32.00   32.00
+    Theoretical Occupancy                     %  100.00  100.00  100.00
+    Achieved Occupancy                        %   94.90   94.98   94.94
+    Achieved Active Warps Per SM           warp   30.37   30.39   30.38
+    ------------------------------- ----------- ------- ------- -------
+
+  void sobel_shared<16>(const float *, float *, int, int) (68, 68, 1)x(16, 16, 1), Device 0, CC 7.5, Invocations 1
+    Section: GPU Speed Of Light Throughput
+    ----------------------- ----------- --------- --------- ---------
+    Metric Name             Metric Unit   Minimum   Maximum   Average
+    ----------------------- ----------- --------- --------- ---------
+    DRAM Frequency                  Ghz      4.75      4.75      4.75
+    SM Frequency                    Mhz    584.70    584.70    584.70
+    Elapsed Cycles                cycle 66,147.00 66,147.00 66,147.00
+    Memory Throughput                 %     40.08     40.08     40.08
+    DRAM Throughput                   %     33.03     33.03     33.03
+    Duration                         us    113.12    113.12    113.12
+    L1/TEX Cache Throughput           %     73.56     73.56     73.56
+    L2 Cache Throughput               %     15.25     15.25     15.25
+    SM Active Cycles              cycle 62,199.68 62,199.68 62,199.68
+    Compute (SM) Throughput           %     40.08     40.08     40.08
+    ----------------------- ----------- --------- --------- ---------
+
+    Section: GPU and Memory Workload Distribution
+    -------------------------- ----------- ------------- ------------- -------------
+    Metric Name                Metric Unit       Minimum       Maximum       Average
+    -------------------------- ----------- ------------- ------------- -------------
+    Average DRAM Active Cycles       cycle    177,578.00    177,578.00    177,578.00
+    Total DRAM Elapsed Cycles        cycle  4,300,800.00  4,300,800.00  4,300,800.00
+    Average L1 Active Cycles         cycle     62,199.68     62,199.68     62,199.68
+    Total L1 Elapsed Cycles          cycle  2,525,608.00  2,525,608.00  2,525,608.00
+    Average L2 Active Cycles         cycle     82,519.94     82,519.94     82,519.94
+    Total L2 Elapsed Cycles          cycle  3,092,832.00  3,092,832.00  3,092,832.00
+    Average SM Active Cycles         cycle     62,199.68     62,199.68     62,199.68
+    Total SM Elapsed Cycles          cycle  2,525,608.00  2,525,608.00  2,525,608.00
+    Average SMSP Active Cycles       cycle     61,549.11     61,549.11     61,549.11
+    Total SMSP Elapsed Cycles        cycle 10,102,432.00 10,102,432.00 10,102,432.00
+    -------------------------- ----------- ------------- ------------- -------------
+
+    Section: Launch Statistics
+    -------------------------------- --------------- ------------ ------------ ------------
+    Metric Name                          Metric Unit      Minimum      Maximum      Average
+    -------------------------------- --------------- ------------ ------------ ------------
+    Block Size                                             256.00       256.00       256.00
+    Grid Size                                            4,624.00     4,624.00     4,624.00
+    Registers Per Thread             register/thread        26.00        26.00        26.00
+    Shared Memory Configuration Size           Kbyte        32.77        32.77        32.77
+    Driver Shared Memory Per Block        byte/block         0.00         0.00         0.00
+    Dynamic Shared Memory Per Block       byte/block         0.00         0.00         0.00
+    Static Shared Memory Per Block       Kbyte/block         1.30         1.30         1.30
+    # SMs                                         SM        40.00        40.00        40.00
+    Stack Size                                           1,024.00     1,024.00     1,024.00
+    Threads                                   thread 1,183,744.00 1,183,744.00 1,183,744.00
+    # TPCs                                                  20.00        20.00        20.00
+    Uses Green Context                                       0.00         0.00         0.00
+    Waves Per SM                                            28.90        28.90        28.90
+    -------------------------------- --------------- ------------ ------------ ------------
+
+    Section: Occupancy
+    ------------------------------- ----------- ------- ------- -------
+    Metric Name                     Metric Unit Minimum Maximum Average
+    ------------------------------- ----------- ------- ------- -------
+    Block Limit SM                        block   16.00   16.00   16.00
+    Block Limit Registers                 block    8.00    8.00    8.00
+    Block Limit Shared Mem                block   21.00   21.00   21.00
+    Block Limit Warps                     block    4.00    4.00    4.00
+    Theoretical Active Warps per SM        warp   32.00   32.00   32.00
+    Theoretical Occupancy                     %  100.00  100.00  100.00
+    Achieved Occupancy                        %   93.01   93.01   93.01
+    Achieved Active Warps Per SM           warp   29.76   29.76   29.76
+    ------------------------------- ----------- ------- ------- -------
+
+  Note: The shown averages are calculated as the arithmetic mean of the metric values after the evaluation of the    
+  metrics for each individual kernel launch.                                                                         
+  If aggregating across varying launch configurations (like shared memory, cache config settings), the arithmetic    
+  mean can be misleading and looking at the individual results is recommended instead.                               
+  This output mode is backwards compatible to the per-kernel summary output of nvprof                                
+
 
 ================================================================
->>> profile: 1024x1024.pgm | block 32
+>>> profile: 1024x1024.pgm | block 32 (ncu)
 ================================================================
-======== Warning: Skipping profiling on device 0 since profiling is not supported on devices with compute capability 7.5 and higher.
-                  Use NVIDIA Nsight Compute for GPU profiling and NVIDIA Nsight Systems for GPU tracing and CPU sampling.
-                  Refer https://developer.nvidia.com/tools-overview for more details.
-
-==5138== NVPROF is profiling process 5138, command: ./image_processing_cuda ../../images/1024x1024.pgm 32
+==PROF== Connected to process 7368 (/content/parallel-programming-project/cuda/image_processing/image_processing_cuda)
+==PROF== Profiling "gaussian_blur_shared" - 0: 0%....50%....100% - 9 passes
+==PROF== Profiling "gaussian_blur_shared" - 1: 0%....50%....100% - 9 passes
+==PROF== Profiling "sobel_shared" - 2: 0%....50%....100% - 9 passes
 === Gaussian Blur | Block: 32 ===
 Image size:  1080x1080
-Time:        0.0002 seconds
-Energy:      0.0048 Joules
-GFLOPS:      343.1557
-GFLOPS/W:    12.0617
+Time:        1.6480 seconds
+Energy:      47.1093 Joules
+GFLOPS:      0.0354
+GFLOPS/W:    0.0012
 
 === Sobel Edge Detection | Block: 32 ===
 Image size:  1080x1080
-Time:        0.0001 seconds
-Energy:      0.0038 Joules
-GFLOPS:      311.7605
-GFLOPS/W:    10.9582
+Time:        1.6487 seconds
+Energy:      46.8053 Joules
+GFLOPS:      0.0255
+GFLOPS/W:    0.0009
 
-==5138== Profiling application: ./image_processing_cuda ../../images/1024x1024.pgm 32
-==5138== Profiling result:
-No events/metrics were profiled.
+==PROF== Disconnected from process 7368
+[7368] image_processing_cuda@127.0.0.1
+  void gaussian_blur_shared<32>(const float *, float *, int, int) (34, 34, 1)x(32, 32, 1), Device 0, CC 7.5, Invocations 2
+    Section: GPU Speed Of Light Throughput
+    ----------------------- ----------- ---------- ---------- ----------
+    Metric Name             Metric Unit    Minimum    Maximum    Average
+    ----------------------- ----------- ---------- ---------- ----------
+    DRAM Frequency                  Ghz       4.95       4.96       4.95
+    SM Frequency                    Mhz     584.84     584.89     584.87
+    Elapsed Cycles                cycle 102,573.00 102,638.00 102,605.50
+    Memory Throughput                 %      55.11      55.17      55.14
+    DRAM Throughput                   %      19.52      19.53      19.52
+    Duration                         us     175.36     175.49     175.42
+    L1/TEX Cache Throughput           %      58.82      58.84      58.83
+    L2 Cache Throughput               %       8.18       8.19       8.19
+    SM Active Cycles              cycle  95,477.88  95,504.65  95,491.26
+    Compute (SM) Throughput           %      55.11      55.17      55.14
+    ----------------------- ----------- ---------- ---------- ----------
+
+    Section: GPU and Memory Workload Distribution
+    -------------------------- ----------- ------------- ------------- -------------
+    Metric Name                Metric Unit       Minimum       Maximum       Average
+    -------------------------- ----------- ------------- ------------- -------------
+    Average DRAM Active Cycles       cycle    169,473.00    169,886.00    169,679.50
+    Total DRAM Elapsed Cycles        cycle  6,945,792.00  6,959,104.00  6,952,448.00
+    Average L1 Active Cycles         cycle     95,477.88     95,504.65     95,491.26
+    Total L1 Elapsed Cycles          cycle  4,073,000.00  4,077,256.00  4,075,128.00
+    Average L2 Active Cycles         cycle     71,795.84     71,842.00     71,818.92
+    Total L2 Elapsed Cycles          cycle  4,796,832.00  4,800,032.00  4,798,432.00
+    Average SM Active Cycles         cycle     95,477.88     95,504.65     95,491.26
+    Total SM Elapsed Cycles          cycle  4,073,000.00  4,077,256.00  4,075,128.00
+    Average SMSP Active Cycles       cycle     94,543.29     94,655.22     94,599.26
+    Total SMSP Elapsed Cycles        cycle 16,292,000.00 16,309,024.00 16,300,512.00
+    -------------------------- ----------- ------------- ------------- -------------
+
+    Section: Launch Statistics
+    -------------------------------- --------------- ------------ ------------ ------------
+    Metric Name                          Metric Unit      Minimum      Maximum      Average
+    -------------------------------- --------------- ------------ ------------ ------------
+    Block Size                                           1,024.00     1,024.00     1,024.00
+    Grid Size                                            1,156.00     1,156.00     1,156.00
+    Registers Per Thread             register/thread        26.00        26.00        26.00
+    Shared Memory Configuration Size           Kbyte        32.77        32.77        32.77
+    Driver Shared Memory Per Block        byte/block         0.00         0.00         0.00
+    Dynamic Shared Memory Per Block       byte/block         0.00         0.00         0.00
+    Static Shared Memory Per Block       Kbyte/block         5.18         5.18         5.18
+    # SMs                                         SM        40.00        40.00        40.00
+    Stack Size                                           1,024.00     1,024.00     1,024.00
+    Threads                                   thread 1,183,744.00 1,183,744.00 1,183,744.00
+    # TPCs                                                  20.00        20.00        20.00
+    Uses Green Context                                       0.00         0.00         0.00
+    Waves Per SM                                            28.90        28.90        28.90
+    -------------------------------- --------------- ------------ ------------ ------------
+
+    Section: Occupancy
+    ------------------------------- ----------- ------- ------- -------
+    Metric Name                     Metric Unit Minimum Maximum Average
+    ------------------------------- ----------- ------- ------- -------
+    Block Limit SM                        block   16.00   16.00   16.00
+    Block Limit Registers                 block    2.00    2.00    2.00
+    Block Limit Shared Mem                block    6.00    6.00    6.00
+    Block Limit Warps                     block    1.00    1.00    1.00
+    Theoretical Active Warps per SM        warp   32.00   32.00   32.00
+    Theoretical Occupancy                     %  100.00  100.00  100.00
+    Achieved Occupancy                        %   97.14   97.21   97.18
+    Achieved Active Warps Per SM           warp   31.08   31.11   31.10
+    ------------------------------- ----------- ------- ------- -------
+
+  void sobel_shared<32>(const float *, float *, int, int) (34, 34, 1)x(32, 32, 1), Device 0, CC 7.5, Invocations 1
+    Section: GPU Speed Of Light Throughput
+    ----------------------- ----------- --------- --------- ---------
+    Metric Name             Metric Unit   Minimum   Maximum   Average
+    ----------------------- ----------- --------- --------- ---------
+    DRAM Frequency                  Ghz      4.94      4.94      4.94
+    SM Frequency                    Mhz    584.92    584.92    584.92
+    Elapsed Cycles                cycle 72,552.00 72,552.00 72,552.00
+    Memory Throughput                 %     34.21     34.21     34.21
+    DRAM Throughput                   %     27.53     27.53     27.53
+    Duration                         us    124.03    124.03    124.03
+    L1/TEX Cache Throughput           %     38.30     38.30     38.30
+    L2 Cache Throughput               %     11.18     11.18     11.18
+    SM Active Cycles              cycle 65,514.80 65,514.80 65,514.80
+    Compute (SM) Throughput           %     34.21     34.21     34.21
+    ----------------------- ----------- --------- --------- ---------
+
+    Section: GPU and Memory Workload Distribution
+    -------------------------- ----------- ------------- ------------- -------------
+    Metric Name                Metric Unit       Minimum       Maximum       Average
+    -------------------------- ----------- ------------- ------------- -------------
+    Average DRAM Active Cycles       cycle    168,715.00    168,715.00    168,715.00
+    Total DRAM Elapsed Cycles        cycle  4,902,912.00  4,902,912.00  4,902,912.00
+    Average L1 Active Cycles         cycle     65,514.80     65,514.80     65,514.80
+    Total L1 Elapsed Cycles          cycle  2,865,072.00  2,865,072.00  2,865,072.00
+    Average L2 Active Cycles         cycle     75,200.59     75,200.59     75,200.59
+    Total L2 Elapsed Cycles          cycle  3,393,024.00  3,393,024.00  3,393,024.00
+    Average SM Active Cycles         cycle     65,514.80     65,514.80     65,514.80
+    Total SM Elapsed Cycles          cycle  2,865,072.00  2,865,072.00  2,865,072.00
+    Average SMSP Active Cycles       cycle     64,227.79     64,227.79     64,227.79
+    Total SMSP Elapsed Cycles        cycle 11,460,288.00 11,460,288.00 11,460,288.00
+    -------------------------- ----------- ------------- ------------- -------------
+
+    Section: Launch Statistics
+    -------------------------------- --------------- ------------ ------------ ------------
+    Metric Name                          Metric Unit      Minimum      Maximum      Average
+    -------------------------------- --------------- ------------ ------------ ------------
+    Block Size                                           1,024.00     1,024.00     1,024.00
+    Grid Size                                            1,156.00     1,156.00     1,156.00
+    Registers Per Thread             register/thread        26.00        26.00        26.00
+    Shared Memory Configuration Size           Kbyte        32.77        32.77        32.77
+    Driver Shared Memory Per Block        byte/block         0.00         0.00         0.00
+    Dynamic Shared Memory Per Block       byte/block         0.00         0.00         0.00
+    Static Shared Memory Per Block       Kbyte/block         4.62         4.62         4.62
+    # SMs                                         SM        40.00        40.00        40.00
+    Stack Size                                           1,024.00     1,024.00     1,024.00
+    Threads                                   thread 1,183,744.00 1,183,744.00 1,183,744.00
+    # TPCs                                                  20.00        20.00        20.00
+    Uses Green Context                                       0.00         0.00         0.00
+    Waves Per SM                                            28.90        28.90        28.90
+    -------------------------------- --------------- ------------ ------------ ------------
+
+    Section: Occupancy
+    ------------------------------- ----------- ------- ------- -------
+    Metric Name                     Metric Unit Minimum Maximum Average
+    ------------------------------- ----------- ------- ------- -------
+    Block Limit SM                        block   16.00   16.00   16.00
+    Block Limit Registers                 block    2.00    2.00    2.00
+    Block Limit Shared Mem                block    6.00    6.00    6.00
+    Block Limit Warps                     block    1.00    1.00    1.00
+    Theoretical Active Warps per SM        warp   32.00   32.00   32.00
+    Theoretical Occupancy                     %  100.00  100.00  100.00
+    Achieved Occupancy                        %   96.43   96.43   96.43
+    Achieved Active Warps Per SM           warp   30.86   30.86   30.86
+    ------------------------------- ----------- ------- ------- -------
+
+  Note: The shown averages are calculated as the arithmetic mean of the metric values after the evaluation of the    
+  metrics for each individual kernel launch.                                                                         
+  If aggregating across varying launch configurations (like shared memory, cache config settings), the arithmetic    
+  mean can be misleading and looking at the individual results is recommended instead.                               
+  This output mode is backwards compatible to the per-kernel summary output of nvprof                                
+
 
 ================================================================
->>> profile: 7680x4320.pgm | block 8
+>>> profile: 7680x4320.pgm | block 8 (ncu)
 ================================================================
-======== Warning: Skipping profiling on device 0 since profiling is not supported on devices with compute capability 7.5 and higher.
-                  Use NVIDIA Nsight Compute for GPU profiling and NVIDIA Nsight Systems for GPU tracing and CPU sampling.
-                  Refer https://developer.nvidia.com/tools-overview for more details.
-
-==5165== NVPROF is profiling process 5165, command: ./image_processing_cuda ../../images/7680x4320.pgm 8
+==PROF== Connected to process 7468 (/content/parallel-programming-project/cuda/image_processing/image_processing_cuda)
+==PROF== Profiling "gaussian_blur_shared" - 0: 0%....50%....100% - 9 passes
+==PROF== Profiling "gaussian_blur_shared" - 1: 0%....50%....100% - 9 passes
+==PROF== Profiling "sobel_shared" - 2: 0%....50%....100% - 9 passes
 === Gaussian Blur | Block: 8 ===
 Image size:  7680x4320
-Time:        0.0041 seconds
-Energy:      0.1191 Joules
-GFLOPS:      400.4573
-GFLOPS/W:    13.9289
+Time:        1.7180 seconds
+Energy:      55.9474 Joules
+GFLOPS:      0.9656
+GFLOPS/W:    0.0297
 
 === Sobel Edge Detection | Block: 8 ===
 Image size:  7680x4320
-Time:        0.0025 seconds
-Energy:      0.0742 Joules
-GFLOPS:      477.5191
-GFLOPS/W:    16.0862
+Time:        1.6959 seconds
+Energy:      52.4622 Joules
+GFLOPS:      0.7043
+GFLOPS/W:    0.0228
 
-==5165== Profiling application: ./image_processing_cuda ../../images/7680x4320.pgm 8
-==5165== Profiling result:
-No events/metrics were profiled.
+==PROF== Disconnected from process 7468
+[7468] image_processing_cuda@127.0.0.1
+  void gaussian_blur_shared<8>(const float *, float *, int, int) (960, 540, 1)x(8, 8, 1), Device 0, CC 7.5, Invocations 2
+    Section: GPU Speed Of Light Throughput
+    ----------------------- ----------- ------------ ------------ ------------
+    Metric Name             Metric Unit      Minimum      Maximum      Average
+    ----------------------- ----------- ------------ ------------ ------------
+    DRAM Frequency                  Ghz         5.00         5.00         5.00
+    SM Frequency                    Mhz       585.00       585.00       585.00
+    Elapsed Cycles                cycle 3,592,933.00 3,593,159.00 3,593,046.00
+    Memory Throughput                 %        49.74        49.75        49.74
+    DRAM Throughput                   %        19.39        19.39        19.39
+    Duration                         ms         6.14         6.14         6.14
+    L1/TEX Cache Throughput           %        99.49        99.50        99.50
+    L2 Cache Throughput               %        11.54        11.61        11.58
+    SM Active Cycles              cycle 3,591,409.80 3,591,764.80 3,591,587.30
+    Compute (SM) Throughput           %        47.61        47.61        47.61
+    ----------------------- ----------- ------------ ------------ ------------
+
+    Section: GPU and Memory Workload Distribution
+    -------------------------- ----------- -------------- -------------- --------------
+    Metric Name                Metric Unit        Minimum        Maximum        Average
+    -------------------------- ----------- -------------- -------------- --------------
+    Average DRAM Active Cycles       cycle   5,949,402.50   5,951,003.00   5,950,202.75
+    Total DRAM Elapsed Cycles        cycle 245,469,184.00 245,501,952.00 245,485,568.00
+    Average L1 Active Cycles         cycle   3,591,409.80   3,591,764.80   3,591,587.30
+    Total L1 Elapsed Cycles          cycle 143,733,560.00 143,734,176.00 143,733,868.00
+    Average L2 Active Cycles         cycle   5,071,003.66   5,072,623.38   5,071,813.52
+    Total L2 Elapsed Cycles          cycle 168,037,184.00 168,047,936.00 168,042,560.00
+    Average SM Active Cycles         cycle   3,591,409.80   3,591,764.80   3,591,587.30
+    Total SM Elapsed Cycles          cycle 143,733,560.00 143,734,176.00 143,733,868.00
+    Average SMSP Active Cycles       cycle   3,591,147.99   3,591,425.88   3,591,286.94
+    Total SMSP Elapsed Cycles        cycle 574,934,240.00 574,936,704.00 574,935,472.00
+    -------------------------- ----------- -------------- -------------- --------------
+
+    Section: Launch Statistics
+    -------------------------------- --------------- ------------- ------------- -------------
+    Metric Name                          Metric Unit       Minimum       Maximum       Average
+    -------------------------------- --------------- ------------- ------------- -------------
+    Block Size                                               64.00         64.00         64.00
+    Grid Size                                           518,400.00    518,400.00    518,400.00
+    Registers Per Thread             register/thread         26.00         26.00         26.00
+    Shared Memory Configuration Size           Kbyte         32.77         32.77         32.77
+    Driver Shared Memory Per Block        byte/block          0.00          0.00          0.00
+    Dynamic Shared Memory Per Block       byte/block          0.00          0.00          0.00
+    Static Shared Memory Per Block        byte/block        576.00        576.00        576.00
+    # SMs                                         SM         40.00         40.00         40.00
+    Stack Size                                            1,024.00      1,024.00      1,024.00
+    Threads                                   thread 33,177,600.00 33,177,600.00 33,177,600.00
+    # TPCs                                                   20.00         20.00         20.00
+    Uses Green Context                                        0.00          0.00          0.00
+    Waves Per SM                                            810.00        810.00        810.00
+    -------------------------------- --------------- ------------- ------------- -------------
+
+    Section: Occupancy
+    ------------------------------- ----------- ------- ------- -------
+    Metric Name                     Metric Unit Minimum Maximum Average
+    ------------------------------- ----------- ------- ------- -------
+    Block Limit SM                        block   16.00   16.00   16.00
+    Block Limit Registers                 block   32.00   32.00   32.00
+    Block Limit Shared Mem                block   42.00   42.00   42.00
+    Block Limit Warps                     block   16.00   16.00   16.00
+    Theoretical Active Warps per SM        warp   32.00   32.00   32.00
+    Theoretical Occupancy                     %  100.00  100.00  100.00
+    Achieved Occupancy                        %   93.42   93.43   93.43
+    Achieved Active Warps Per SM           warp   29.89   29.90   29.90
+    ------------------------------- ----------- ------- ------- -------
+
+  void sobel_shared<8>(const float *, float *, int, int) (960, 540, 1)x(8, 8, 1), Device 0, CC 7.5, Invocations 1
+    Section: GPU Speed Of Light Throughput
+    ----------------------- ----------- ------------ ------------ ------------
+    Metric Name             Metric Unit      Minimum      Maximum      Average
+    ----------------------- ----------- ------------ ------------ ------------
+    DRAM Frequency                  Ghz         5.00         5.00         5.00
+    SM Frequency                    Mhz       584.99       584.99       584.99
+    Elapsed Cycles                cycle 1,924,692.00 1,924,692.00 1,924,692.00
+    Memory Throughput                 %        44.37        44.37        44.37
+    DRAM Throughput                   %        32.82        32.82        32.82
+    Duration                         ms         3.29         3.29         3.29
+    L1/TEX Cache Throughput           %        88.75        88.75        88.75
+    L2 Cache Throughput               %        19.13        19.13        19.13
+    SM Active Cycles              cycle 1,925,348.32 1,925,348.32 1,925,348.32
+    Compute (SM) Throughput           %        41.34        41.34        41.34
+    ----------------------- ----------- ------------ ------------ ------------
+
+    Section: GPU and Memory Workload Distribution
+    -------------------------- ----------- -------------- -------------- --------------
+    Metric Name                Metric Unit        Minimum        Maximum        Average
+    -------------------------- ----------- -------------- -------------- --------------
+    Average DRAM Active Cycles       cycle   5,395,657.00   5,395,657.00   5,395,657.00
+    Total DRAM Elapsed Cycles        cycle 131,506,176.00 131,506,176.00 131,506,176.00
+    Average L1 Active Cycles         cycle   1,925,348.32   1,925,348.32   1,925,348.32
+    Total L1 Elapsed Cycles          cycle  76,863,696.00  76,863,696.00  76,863,696.00
+    Average L2 Active Cycles         cycle   2,640,117.25   2,640,117.25   2,640,117.25
+    Total L2 Elapsed Cycles          cycle  90,014,688.00  90,014,688.00  90,014,688.00
+    Average SM Active Cycles         cycle   1,925,348.32   1,925,348.32   1,925,348.32
+    Total SM Elapsed Cycles          cycle  76,863,696.00  76,863,696.00  76,863,696.00
+    Average SMSP Active Cycles       cycle   1,918,779.22   1,918,779.22   1,918,779.22
+    Total SMSP Elapsed Cycles        cycle 307,454,784.00 307,454,784.00 307,454,784.00
+    -------------------------- ----------- -------------- -------------- --------------
+
+    Section: Launch Statistics
+    -------------------------------- --------------- ------------- ------------- -------------
+    Metric Name                          Metric Unit       Minimum       Maximum       Average
+    -------------------------------- --------------- ------------- ------------- -------------
+    Block Size                                               64.00         64.00         64.00
+    Grid Size                                           518,400.00    518,400.00    518,400.00
+    Registers Per Thread             register/thread         26.00         26.00         26.00
+    Shared Memory Configuration Size           Kbyte         32.77         32.77         32.77
+    Driver Shared Memory Per Block        byte/block          0.00          0.00          0.00
+    Dynamic Shared Memory Per Block       byte/block          0.00          0.00          0.00
+    Static Shared Memory Per Block        byte/block        400.00        400.00        400.00
+    # SMs                                         SM         40.00         40.00         40.00
+    Stack Size                                            1,024.00      1,024.00      1,024.00
+    Threads                                   thread 33,177,600.00 33,177,600.00 33,177,600.00
+    # TPCs                                                   20.00         20.00         20.00
+    Uses Green Context                                        0.00          0.00          0.00
+    Waves Per SM                                            810.00        810.00        810.00
+    -------------------------------- --------------- ------------- ------------- -------------
+
+    Section: Occupancy
+    ------------------------------- ----------- ------- ------- -------
+    Metric Name                     Metric Unit Minimum Maximum Average
+    ------------------------------- ----------- ------- ------- -------
+    Block Limit SM                        block   16.00   16.00   16.00
+    Block Limit Registers                 block   32.00   32.00   32.00
+    Block Limit Shared Mem                block   64.00   64.00   64.00
+    Block Limit Warps                     block   16.00   16.00   16.00
+    Theoretical Active Warps per SM        warp   32.00   32.00   32.00
+    Theoretical Occupancy                     %  100.00  100.00  100.00
+    Achieved Occupancy                        %   90.68   90.68   90.68
+    Achieved Active Warps Per SM           warp   29.02   29.02   29.02
+    ------------------------------- ----------- ------- ------- -------
+
+  Note: The shown averages are calculated as the arithmetic mean of the metric values after the evaluation of the    
+  metrics for each individual kernel launch.                                                                         
+  If aggregating across varying launch configurations (like shared memory, cache config settings), the arithmetic    
+  mean can be misleading and looking at the individual results is recommended instead.                               
+  This output mode is backwards compatible to the per-kernel summary output of nvprof                                
+
 
 ================================================================
->>> profile: 7680x4320.pgm | block 16
+>>> profile: 7680x4320.pgm | block 16 (ncu)
 ================================================================
-======== Warning: Skipping profiling on device 0 since profiling is not supported on devices with compute capability 7.5 and higher.
-                  Use NVIDIA Nsight Compute for GPU profiling and NVIDIA Nsight Systems for GPU tracing and CPU sampling.
-                  Refer https://developer.nvidia.com/tools-overview for more details.
-
-==5192== NVPROF is profiling process 5192, command: ./image_processing_cuda ../../images/7680x4320.pgm 16
+==PROF== Connected to process 7568 (/content/parallel-programming-project/cuda/image_processing/image_processing_cuda)
+==PROF== Profiling "gaussian_blur_shared" - 0: 0%....50%....100% - 9 passes
+==PROF== Profiling "gaussian_blur_shared" - 1: 0%....50%....100% - 9 passes
+==PROF== Profiling "sobel_shared" - 2: 0%....50%....100% - 9 passes
 === Gaussian Blur | Block: 16 ===
 Image size:  7680x4320
-Time:        0.0044 seconds
-Energy:      0.1274 Joules
-GFLOPS:      380.0559
-GFLOPS/W:    13.0201
+Time:        1.7092 seconds
+Energy:      53.2089 Joules
+GFLOPS:      0.9705
+GFLOPS/W:    0.0312
 
 === Sobel Edge Detection | Block: 16 ===
 Image size:  7680x4320
-Time:        0.0027 seconds
-Energy:      0.0801 Joules
-GFLOPS:      443.0559
-GFLOPS/W:    14.9027
+Time:        1.7163 seconds
+Energy:      53.3433 Joules
+GFLOPS:      0.6959
+GFLOPS/W:    0.0224
 
-==5192== Profiling application: ./image_processing_cuda ../../images/7680x4320.pgm 16
-==5192== Profiling result:
-No events/metrics were profiled.
+==PROF== Disconnected from process 7568
+[7568] image_processing_cuda@127.0.0.1
+  void gaussian_blur_shared<16>(const float *, float *, int, int) (480, 270, 1)x(16, 16, 1), Device 0, CC 7.5, Invocations 2
+    Section: GPU Speed Of Light Throughput
+    ----------------------- ----------- ------------ ------------ ------------
+    Metric Name             Metric Unit      Minimum      Maximum      Average
+    ----------------------- ----------- ------------ ------------ ------------
+    DRAM Frequency                  Ghz         4.99         5.00         4.99
+    SM Frequency                    Mhz       584.99       585.00       585.00
+    Elapsed Cycles                cycle 3,256,338.00 3,256,522.00 3,256,430.00
+    Memory Throughput                 %        49.75        49.77        49.76
+    DRAM Throughput                   %        20.51        20.52        20.51
+    Duration                         ms         5.57         5.57         5.57
+    L1/TEX Cache Throughput           %        95.77        95.82        95.80
+    L2 Cache Throughput               %         9.50         9.50         9.50
+    SM Active Cycles              cycle 3,252,570.05 3,254,055.90 3,253,312.97
+    Compute (SM) Throughput           %        49.75        49.77        49.76
+    ----------------------- ----------- ------------ ------------ ------------
+
+    Section: GPU and Memory Workload Distribution
+    -------------------------- ----------- -------------- -------------- --------------
+    Metric Name                Metric Unit        Minimum        Maximum        Average
+    -------------------------- ----------- -------------- -------------- --------------
+    Average DRAM Active Cycles       cycle   5,703,563.00   5,704,113.50   5,703,838.25
+    Total DRAM Elapsed Cycles        cycle 222,396,416.00 222,482,432.00 222,439,424.00
+    Average L1 Active Cycles         cycle   3,252,570.05   3,254,055.90   3,253,312.97
+    Total L1 Elapsed Cycles          cycle 130,203,280.00 130,261,224.00 130,232,252.00
+    Average L2 Active Cycles         cycle   4,068,156.41   4,075,415.50   4,071,785.95
+    Total L2 Elapsed Cycles          cycle 152,295,840.00 152,304,480.00 152,300,160.00
+    Average SM Active Cycles         cycle   3,252,570.05   3,254,055.90   3,253,312.97
+    Total SM Elapsed Cycles          cycle 130,203,280.00 130,261,224.00 130,232,252.00
+    Average SMSP Active Cycles       cycle   3,253,107.81   3,253,635.66   3,253,371.73
+    Total SMSP Elapsed Cycles        cycle 520,813,120.00 521,044,896.00 520,929,008.00
+    -------------------------- ----------- -------------- -------------- --------------
+
+    Section: Launch Statistics
+    -------------------------------- --------------- ------------- ------------- -------------
+    Metric Name                          Metric Unit       Minimum       Maximum       Average
+    -------------------------------- --------------- ------------- ------------- -------------
+    Block Size                                              256.00        256.00        256.00
+    Grid Size                                           129,600.00    129,600.00    129,600.00
+    Registers Per Thread             register/thread         26.00         26.00         26.00
+    Shared Memory Configuration Size           Kbyte         32.77         32.77         32.77
+    Driver Shared Memory Per Block        byte/block          0.00          0.00          0.00
+    Dynamic Shared Memory Per Block       byte/block          0.00          0.00          0.00
+    Static Shared Memory Per Block       Kbyte/block          1.60          1.60          1.60
+    # SMs                                         SM         40.00         40.00         40.00
+    Stack Size                                            1,024.00      1,024.00      1,024.00
+    Threads                                   thread 33,177,600.00 33,177,600.00 33,177,600.00
+    # TPCs                                                   20.00         20.00         20.00
+    Uses Green Context                                        0.00          0.00          0.00
+    Waves Per SM                                            810.00        810.00        810.00
+    -------------------------------- --------------- ------------- ------------- -------------
+
+    Section: Occupancy
+    ------------------------------- ----------- ------- ------- -------
+    Metric Name                     Metric Unit Minimum Maximum Average
+    ------------------------------- ----------- ------- ------- -------
+    Block Limit SM                        block   16.00   16.00   16.00
+    Block Limit Registers                 block    8.00    8.00    8.00
+    Block Limit Shared Mem                block   18.00   18.00   18.00
+    Block Limit Warps                     block    4.00    4.00    4.00
+    Theoretical Active Warps per SM        warp   32.00   32.00   32.00
+    Theoretical Occupancy                     %  100.00  100.00  100.00
+    Achieved Occupancy                        %   94.97   95.01   94.99
+    Achieved Active Warps Per SM           warp   30.39   30.40   30.40
+    ------------------------------- ----------- ------- ------- -------
+
+  void sobel_shared<16>(const float *, float *, int, int) (480, 270, 1)x(16, 16, 1), Device 0, CC 7.5, Invocations 1
+    Section: GPU Speed Of Light Throughput
+    ----------------------- ----------- ------------ ------------ ------------
+    Metric Name             Metric Unit      Minimum      Maximum      Average
+    ----------------------- ----------- ------------ ------------ ------------
+    DRAM Frequency                  Ghz         5.00         5.00         5.00
+    SM Frequency                    Mhz       584.99       584.99       584.99
+    Elapsed Cycles                cycle 1,821,982.00 1,821,982.00 1,821,982.00
+    Memory Throughput                 %        39.15        39.15        39.15
+    DRAM Throughput                   %        33.79        33.79        33.79
+    Duration                         ms         3.11         3.11         3.11
+    L1/TEX Cache Throughput           %        72.25        72.25        72.25
+    L2 Cache Throughput               %        15.79        15.79        15.79
+    SM Active Cycles              cycle 1,821,472.30 1,821,472.30 1,821,472.30
+    Compute (SM) Throughput           %        39.15        39.15        39.15
+    ----------------------- ----------- ------------ ------------ ------------
+
+    Section: GPU and Memory Workload Distribution
+    -------------------------- ----------- -------------- -------------- --------------
+    Metric Name                Metric Unit        Minimum        Maximum        Average
+    -------------------------- ----------- -------------- -------------- --------------
+    Average DRAM Active Cycles       cycle   5,257,176.00   5,257,176.00   5,257,176.00
+    Total DRAM Elapsed Cycles        cycle 124,473,344.00 124,473,344.00 124,473,344.00
+    Average L1 Active Cycles         cycle   1,821,472.30   1,821,472.30   1,821,472.30
+    Total L1 Elapsed Cycles          cycle  72,827,328.00  72,827,328.00  72,827,328.00
+    Average L2 Active Cycles         cycle   2,239,502.06   2,239,502.06   2,239,502.06
+    Total L2 Elapsed Cycles          cycle  85,211,680.00  85,211,680.00  85,211,680.00
+    Average SM Active Cycles         cycle   1,821,472.30   1,821,472.30   1,821,472.30
+    Total SM Elapsed Cycles          cycle  72,827,328.00  72,827,328.00  72,827,328.00
+    Average SMSP Active Cycles       cycle   1,817,372.18   1,817,372.18   1,817,372.18
+    Total SMSP Elapsed Cycles        cycle 291,309,312.00 291,309,312.00 291,309,312.00
+    -------------------------- ----------- -------------- -------------- --------------
+
+    Section: Launch Statistics
+    -------------------------------- --------------- ------------- ------------- -------------
+    Metric Name                          Metric Unit       Minimum       Maximum       Average
+    -------------------------------- --------------- ------------- ------------- -------------
+    Block Size                                              256.00        256.00        256.00
+    Grid Size                                           129,600.00    129,600.00    129,600.00
+    Registers Per Thread             register/thread         26.00         26.00         26.00
+    Shared Memory Configuration Size           Kbyte         32.77         32.77         32.77
+    Driver Shared Memory Per Block        byte/block          0.00          0.00          0.00
+    Dynamic Shared Memory Per Block       byte/block          0.00          0.00          0.00
+    Static Shared Memory Per Block       Kbyte/block          1.30          1.30          1.30
+    # SMs                                         SM         40.00         40.00         40.00
+    Stack Size                                            1,024.00      1,024.00      1,024.00
+    Threads                                   thread 33,177,600.00 33,177,600.00 33,177,600.00
+    # TPCs                                                   20.00         20.00         20.00
+    Uses Green Context                                        0.00          0.00          0.00
+    Waves Per SM                                            810.00        810.00        810.00
+    -------------------------------- --------------- ------------- ------------- -------------
+
+    Section: Occupancy
+    ------------------------------- ----------- ------- ------- -------
+    Metric Name                     Metric Unit Minimum Maximum Average
+    ------------------------------- ----------- ------- ------- -------
+    Block Limit SM                        block   16.00   16.00   16.00
+    Block Limit Registers                 block    8.00    8.00    8.00
+    Block Limit Shared Mem                block   21.00   21.00   21.00
+    Block Limit Warps                     block    4.00    4.00    4.00
+    Theoretical Active Warps per SM        warp   32.00   32.00   32.00
+    Theoretical Occupancy                     %  100.00  100.00  100.00
+    Achieved Occupancy                        %   90.24   90.24   90.24
+    Achieved Active Warps Per SM           warp   28.88   28.88   28.88
+    ------------------------------- ----------- ------- ------- -------
+
+  Note: The shown averages are calculated as the arithmetic mean of the metric values after the evaluation of the    
+  metrics for each individual kernel launch.                                                                         
+  If aggregating across varying launch configurations (like shared memory, cache config settings), the arithmetic    
+  mean can be misleading and looking at the individual results is recommended instead.                               
+  This output mode is backwards compatible to the per-kernel summary output of nvprof                                
+
 
 ================================================================
->>> profile: 7680x4320.pgm | block 32
+>>> profile: 7680x4320.pgm | block 32 (ncu)
 ================================================================
-======== Warning: Skipping profiling on device 0 since profiling is not supported on devices with compute capability 7.5 and higher.
-                  Use NVIDIA Nsight Compute for GPU profiling and NVIDIA Nsight Systems for GPU tracing and CPU sampling.
-                  Refer https://developer.nvidia.com/tools-overview for more details.
-
-==5219== NVPROF is profiling process 5219, command: ./image_processing_cuda ../../images/7680x4320.pgm 32
+==PROF== Connected to process 7676 (/content/parallel-programming-project/cuda/image_processing/image_processing_cuda)
+==PROF== Profiling "gaussian_blur_shared" - 0: 0%....50%....100% - 9 passes
+==PROF== Profiling "gaussian_blur_shared" - 1: 0%....50%....100% - 9 passes
+==PROF== Profiling "sobel_shared" - 2: 0%....50%....100% - 9 passes
 === Gaussian Blur | Block: 32 ===
 Image size:  7680x4320
-Time:        0.0040 seconds
-Energy:      0.1162 Joules
-GFLOPS:      410.3571
-GFLOPS/W:    14.2733
+Time:        1.7185 seconds
+Energy:      51.2370 Joules
+GFLOPS:      0.9653
+GFLOPS/W:    0.0324
 
 === Sobel Edge Detection | Block: 32 ===
 Image size:  7680x4320
-Time:        0.0030 seconds
-Energy:      0.0865 Joules
-GFLOPS:      402.2849
-GFLOPS/W:    13.8100
+Time:        1.7049 seconds
+Energy:      55.6915 Joules
+GFLOPS:      0.7006
+GFLOPS/W:    0.0214
 
-==5219== Profiling application: ./image_processing_cuda ../../images/7680x4320.pgm 32
-==5219== Profiling result:
-No events/metrics were profiled.
+==PROF== Disconnected from process 7676
+[7676] image_processing_cuda@127.0.0.1
+  void gaussian_blur_shared<32>(const float *, float *, int, int) (240, 135, 1)x(32, 32, 1), Device 0, CC 7.5, Invocations 2
+    Section: GPU Speed Of Light Throughput
+    ----------------------- ----------- ------------ ------------ ------------
+    Metric Name             Metric Unit      Minimum      Maximum      Average
+    ----------------------- ----------- ------------ ------------ ------------
+    DRAM Frequency                  Ghz         4.99         5.00         5.00
+    SM Frequency                    Mhz       584.99       585.00       585.00
+    Elapsed Cycles                cycle 2,968,048.00 2,970,115.00 2,969,081.50
+    Memory Throughput                 %        53.39        53.40        53.39
+    DRAM Throughput                   %        19.95        19.95        19.95
+    Duration                         ms         5.07         5.08         5.08
+    L1/TEX Cache Throughput           %        56.94        56.95        56.95
+    L2 Cache Throughput               %         7.99         8.00         7.99
+    SM Active Cycles              cycle 2,836,528.17 2,839,109.98 2,837,819.08
+    Compute (SM) Throughput           %        53.39        53.40        53.39
+    ----------------------- ----------- ------------ ------------ ------------
+
+    Section: GPU and Memory Workload Distribution
+    -------------------------- ----------- -------------- -------------- --------------
+    Metric Name                Metric Unit        Minimum        Maximum        Average
+    -------------------------- ----------- -------------- -------------- --------------
+    Average DRAM Active Cycles       cycle   5,056,084.00   5,058,875.00   5,057,479.50
+    Total DRAM Elapsed Cycles        cycle 202,779,648.00 202,911,744.00 202,845,696.00
+    Average L1 Active Cycles         cycle   2,836,528.17   2,839,109.98   2,837,819.08
+    Total L1 Elapsed Cycles          cycle 118,684,152.00 118,711,360.00 118,697,756.00
+    Average L2 Active Cycles         cycle   2,051,516.09   2,072,609.03   2,062,062.56
+    Total L2 Elapsed Cycles          cycle 138,810,112.00 138,909,664.00 138,859,888.00
+    Average SM Active Cycles         cycle   2,836,528.17   2,839,109.98   2,837,819.08
+    Total SM Elapsed Cycles          cycle 118,684,152.00 118,711,360.00 118,697,756.00
+    Average SMSP Active Cycles       cycle   2,813,003.34   2,813,406.23   2,813,204.79
+    Total SMSP Elapsed Cycles        cycle 474,736,608.00 474,845,440.00 474,791,024.00
+    -------------------------- ----------- -------------- -------------- --------------
+
+    Section: Launch Statistics
+    -------------------------------- --------------- ------------- ------------- -------------
+    Metric Name                          Metric Unit       Minimum       Maximum       Average
+    -------------------------------- --------------- ------------- ------------- -------------
+    Block Size                                            1,024.00      1,024.00      1,024.00
+    Grid Size                                            32,400.00     32,400.00     32,400.00
+    Registers Per Thread             register/thread         26.00         26.00         26.00
+    Shared Memory Configuration Size           Kbyte         32.77         32.77         32.77
+    Driver Shared Memory Per Block        byte/block          0.00          0.00          0.00
+    Dynamic Shared Memory Per Block       byte/block          0.00          0.00          0.00
+    Static Shared Memory Per Block       Kbyte/block          5.18          5.18          5.18
+    # SMs                                         SM         40.00         40.00         40.00
+    Stack Size                                            1,024.00      1,024.00      1,024.00
+    Threads                                   thread 33,177,600.00 33,177,600.00 33,177,600.00
+    # TPCs                                                   20.00         20.00         20.00
+    Uses Green Context                                        0.00          0.00          0.00
+    Waves Per SM                                            810.00        810.00        810.00
+    -------------------------------- --------------- ------------- ------------- -------------
+
+    Section: Occupancy
+    ------------------------------- ----------- ------- ------- -------
+    Metric Name                     Metric Unit Minimum Maximum Average
+    ------------------------------- ----------- ------- ------- -------
+    Block Limit SM                        block   16.00   16.00   16.00
+    Block Limit Registers                 block    2.00    2.00    2.00
+    Block Limit Shared Mem                block    6.00    6.00    6.00
+    Block Limit Warps                     block    1.00    1.00    1.00
+    Theoretical Active Warps per SM        warp   32.00   32.00   32.00
+    Theoretical Occupancy                     %  100.00  100.00  100.00
+    Achieved Occupancy                        %   96.80   97.02   96.91
+    Achieved Active Warps Per SM           warp   30.98   31.05   31.01
+    ------------------------------- ----------- ------- ------- -------
+
+  void sobel_shared<32>(const float *, float *, int, int) (240, 135, 1)x(32, 32, 1), Device 0, CC 7.5, Invocations 1
+    Section: GPU Speed Of Light Throughput
+    ----------------------- ----------- ------------ ------------ ------------
+    Metric Name             Metric Unit      Minimum      Maximum      Average
+    ----------------------- ----------- ------------ ------------ ------------
+    DRAM Frequency                  Ghz         5.00         5.00         5.00
+    SM Frequency                    Mhz       585.00       585.00       585.00
+    Elapsed Cycles                cycle 2,094,445.00 2,094,445.00 2,094,445.00
+    Memory Throughput                 %        32.93        32.93        32.93
+    DRAM Throughput                   %        28.18        28.18        28.18
+    Duration                         ms         3.58         3.58         3.58
+    L1/TEX Cache Throughput           %        37.96        37.96        37.96
+    L2 Cache Throughput               %        10.96        10.96        10.96
+    SM Active Cycles              cycle 1,966,622.95 1,966,622.95 1,966,622.95
+    Compute (SM) Throughput           %        32.93        32.93        32.93
+    ----------------------- ----------- ------------ ------------ ------------
+
+    Section: GPU and Memory Workload Distribution
+    -------------------------- ----------- -------------- -------------- --------------
+    Metric Name                Metric Unit        Minimum        Maximum        Average
+    -------------------------- ----------- -------------- -------------- --------------
+    Average DRAM Active Cycles       cycle   5,042,097.50   5,042,097.50   5,042,097.50
+    Total DRAM Elapsed Cycles        cycle 143,158,272.00 143,158,272.00 143,158,272.00
+    Average L1 Active Cycles         cycle   1,966,622.95   1,966,622.95   1,966,622.95
+    Total L1 Elapsed Cycles          cycle  83,819,984.00  83,819,984.00  83,819,984.00
+    Average L2 Active Cycles         cycle   1,920,917.09   1,920,917.09   1,920,917.09
+    Total L2 Elapsed Cycles          cycle  97,953,312.00  97,953,312.00  97,953,312.00
+    Average SM Active Cycles         cycle   1,966,622.95   1,966,622.95   1,966,622.95
+    Total SM Elapsed Cycles          cycle  83,819,984.00  83,819,984.00  83,819,984.00
+    Average SMSP Active Cycles       cycle   1,933,708.83   1,933,708.83   1,933,708.83
+    Total SMSP Elapsed Cycles        cycle 335,279,936.00 335,279,936.00 335,279,936.00
+    -------------------------- ----------- -------------- -------------- --------------
+
+    Section: Launch Statistics
+    -------------------------------- --------------- ------------- ------------- -------------
+    Metric Name                          Metric Unit       Minimum       Maximum       Average
+    -------------------------------- --------------- ------------- ------------- -------------
+    Block Size                                            1,024.00      1,024.00      1,024.00
+    Grid Size                                            32,400.00     32,400.00     32,400.00
+    Registers Per Thread             register/thread         26.00         26.00         26.00
+    Shared Memory Configuration Size           Kbyte         32.77         32.77         32.77
+    Driver Shared Memory Per Block        byte/block          0.00          0.00          0.00
+    Dynamic Shared Memory Per Block       byte/block          0.00          0.00          0.00
+    Static Shared Memory Per Block       Kbyte/block          4.62          4.62          4.62
+    # SMs                                         SM         40.00         40.00         40.00
+    Stack Size                                            1,024.00      1,024.00      1,024.00
+    Threads                                   thread 33,177,600.00 33,177,600.00 33,177,600.00
+    # TPCs                                                   20.00         20.00         20.00
+    Uses Green Context                                        0.00          0.00          0.00
+    Waves Per SM                                            810.00        810.00        810.00
+    -------------------------------- --------------- ------------- ------------- -------------
+
+    Section: Occupancy
+    ------------------------------- ----------- ------- ------- -------
+    Metric Name                     Metric Unit Minimum Maximum Average
+    ------------------------------- ----------- ------- ------- -------
+    Block Limit SM                        block   16.00   16.00   16.00
+    Block Limit Registers                 block    2.00    2.00    2.00
+    Block Limit Shared Mem                block    6.00    6.00    6.00
+    Block Limit Warps                     block    1.00    1.00    1.00
+    Theoretical Active Warps per SM        warp   32.00   32.00   32.00
+    Theoretical Occupancy                     %  100.00  100.00  100.00
+    Achieved Occupancy                        %   95.57   95.57   95.57
+    Achieved Active Warps Per SM           warp   30.58   30.58   30.58
+    ------------------------------- ----------- ------- ------- -------
+
+  Note: The shown averages are calculated as the arithmetic mean of the metric values after the evaluation of the    
+  metrics for each individual kernel launch.                                                                         
+  If aggregating across varying launch configurations (like shared memory, cache config settings), the arithmetic    
+  mean can be misleading and looking at the individual results is recommended instead.                               
+  This output mode is backwards compatible to the per-kernel summary output of nvprof                                
+
 
